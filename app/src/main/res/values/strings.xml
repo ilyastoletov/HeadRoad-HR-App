@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Recruiter Heaven</string>
+    <string name="overview">Обзор</string>
+    <string name="calendar">Календарь</string>
+    <string name="vacancies">Вакансии</string>
+    <string name="applicants">Кандидаты</string>
 </resources>
