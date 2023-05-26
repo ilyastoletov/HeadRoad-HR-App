@@ -3,26 +3,46 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/navigation_applicants">
+    app:startDestination="@id/splashFragment">
 
     <fragment
-        android:id="@+id/navigation_applicants"
-        android:name="com.appninjas.recruiterheaven.presentation.ApplicantsFragment"
+        android:id="@+id/navApplicants"
+        android:name="com.appninjas.recruiterheaven.presentation.screens.applicant.ApplicantsFragment"
         android:label="fragment_applicants"
         tools:layout="@layout/fragment_applicants" />
     <fragment
-        android:id="@+id/navigation_vacancies"
-        android:name="com.appninjas.recruiterheaven.presentation.VacanciesFragment"
+        android:id="@+id/navVacancies"
+        android:name="com.appninjas.recruiterheaven.presentation.screens.vacancies.VacanciesFragment"
         android:label="fragment_vacancies"
-        tools:layout="@layout/fragment_vacancies"/>
+        tools:layout="@layout/fragment_vacancies">
+        <action
+            android:id="@+id/action_navigation_vacancies_to_navigation_applicants"
+            app:destination="@id/navApplicants" />
+        <action
+            android:id="@+id/action_navVacancies_to_metricsFragment"
+            app:destination="@id/navMetrics" />
+    </fragment>
     <fragment
-        android:id="@+id/navigation_calendar"
-        android:name="com.appninjas.recruiterheaven.presentation.CalendarFragment"
-        android:label="fragment_calendar"
-        tools:layout="@layout/fragment_calendar"/>
+        android:id="@+id/authFragment"
+        android:name="com.appninjas.recruiterheaven.presentation.screens.auth.AuthFragment"
+        tools:layout="@layout/fragment_authentication"
+        android:label="AuthFragment" >
+        <action
+            android:id="@+id/action_authFragment_to_navigation_vacancies"
+            app:destination="@id/navVacancies" />
+    </fragment>
     <fragment
-        android:id="@+id/navigation_overview"
-        android:name="com.appninjas.recruiterheaven.presentation.OverviewFragment"
-        android:label="fragment_overview"
-        tools:layout="@layout/fragment_overview"/>
+        android:id="@+id/splashFragment"
+        android:name="com.appninjas.recruiterheaven.presentation.screens.splash.SplashFragment"
+        tools:layout="@layout/fragment_splash"
+        android:label="SplashFragment" >
+        <action
+            android:id="@+id/action_splashFragment_to_authFragment"
+            app:destination="@id/authFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/navMetrics"
+        android:name="com.appninjas.recruiterheaven.presentation.screens.metrics.MetricsFragment"
+        tools:layout="@layout/fragment_metrics"
+        android:label="MetricsFragment" />
 </navigation>

@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/navigation_applicants"
-        android:title="@string/applicants"
-        android:icon="@drawable/baseline_home_24"/>
-    <item
-        android:id="@+id/navigation_vacancies"
+        android:id="@+id/navVacancies"
         android:title="@string/vacancies"
-        android:icon="@drawable/baseline_home_24"/>
+        android:icon="@drawable/baseline_checklist_24"/>
     <item
-        android:id="@+id/navigation_calendar"
-        android:title="@string/calendar"
-        android:icon="@drawable/baseline_home_24"/>
+        android:id="@+id/navApplicants"
+        android:title="@string/applicants"
+        android:icon="@drawable/baseline_people_alt_24"/>
     <item
-        android:id="@+id/navigation_overview"
-        android:title="@string/overview"
-        android:icon="@drawable/baseline_home_24"/>
+        android:id="@+id/navMetrics"
+        android:title="Метрики"
+        android:icon="@drawable/baseline_bar_chart_24"/>
 
 </menu>

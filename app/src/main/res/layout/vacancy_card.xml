@@ -53,6 +53,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/vacancy_quantity"
             android:layout_margin="8dp"
+            android:maxLines="2"
             android:text="Senior Front-End (React) Engineer 3D Developer"
             android:fontFeatureSettings="pnum, lnum"
             android:fontFamily="@font/raleway_semi_bold"

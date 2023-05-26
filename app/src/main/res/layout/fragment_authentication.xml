@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/screens_background">
+
+    <LinearLayout
+        android:layout_width="110dp"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/content_start_guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_gravity="start"
+            android:layout_height="wrap_content"
+            android:src="@drawable/splash_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Head Road"
+            android:layout_marginStart="2dp"
+            android:textColor="#3E3A49"
+            android:fontFamily="@font/raleway_medium"
+            android:textSize="23sp"
+            android:maxWidth="125dp"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/login_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="Вход"
+        android:fontFamily="@font/raleway_medium"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
+        app:layout_constraintEnd_toEndOf="@id/vertical_end_guideline"
+        app:layout_constraintTop_toTopOf="@id/content_start_guideline" />
+    
+    <EditText
+        android:id="@+id/enter_login_editText"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:hint="Логин"
+        android:inputType="text"
+        app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
+        app:layout_constraintEnd_toEndOf="@id/vertical_end_guideline"
+        app:layout_constraintTop_toBottomOf="@id/login_text"
+        android:layout_marginTop="10dp"/>
+
+    <EditText
+        android:id="@+id/enter_password_editText"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:hint="Пароль"
+        android:inputType="textPassword"
+        app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
+        app:layout_constraintEnd_toEndOf="@id/vertical_end_guideline"
+        app:layout_constraintTop_toBottomOf="@id/enter_login_editText"
+        android:layout_marginTop="10dp"/>
+
+    <Button
+        android:id="@+id/button_login"
+        android:layout_width="180dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="10dp"
+        android:text="Войти"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toStartOf="@id/vertical_start_guideline"
+        app:layout_constraintEnd_toEndOf="@id/vertical_end_guideline"
+        app:layout_constraintTop_toBottomOf="@id/enter_password_editText"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/content_start_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_start_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vertical_end_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/content_end_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
