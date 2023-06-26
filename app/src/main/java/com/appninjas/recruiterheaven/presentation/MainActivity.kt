@@ -40,10 +40,10 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, nd: NavDestination, _ ->
-            if (nd.id == R.id.authFragment) {
-                bottomNavigationView.visibility = View.GONE
-            } else {
-                bottomNavigationView.visibility = View.VISIBLE
+            when(nd.id) {
+                R.id.authFragment -> bottomNavigationView.visibility = View.GONE
+                R.id.createVacancyFragment -> bottomNavigationView.visibility = View.GONE
+                else -> bottomNavigationView.visibility = View.VISIBLE
             }
         }
     }
@@ -51,9 +51,10 @@ class MainActivity : AppCompatActivity() {
     private fun checkIsUserAuthorized() {
         val sharedPrefs = getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
         val userLoggedIn = sharedPrefs.getBoolean(LOGIN_KEY, false)
-        Log.d("mainActivity", "${userLoggedIn}")
         if (!userLoggedIn) {
             findNavController(R.id.nav_host_fragment).navigate(R.id.authFragment)
+        } else {
+            findNavController(R.id.nav_host_fragment).navigate(R.id.navVacancies)
         }
     }
 

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="screens_background">#FAFCFF</color>
+    <color name="open_vacancy">#18B31E</color>
+    <color name="paused_vacancy">#FFF27E</color>
+    <color name="stopped_vacancy">#F30021</color>
     <color name="main_blue">#417BD2</color>
     <color name="icon_grey">#3E3A49</color>
     <color name="black">#FF000000</color>

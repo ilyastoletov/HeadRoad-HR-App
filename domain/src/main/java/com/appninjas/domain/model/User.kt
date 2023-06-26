@@ -8,6 +8,7 @@ data class User(
     val name: String,
     val role: UserStatus,
     val login: String,
+    val createdAtDate: String,
     val password: String,
-    val vacancies: List<Vacancy>?
+    val vacanciesIds: List<String>?
 )

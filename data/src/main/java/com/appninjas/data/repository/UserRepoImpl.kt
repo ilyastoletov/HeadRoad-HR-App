@@ -19,7 +19,7 @@ class UserRepoImpl(private val context: Context, private val userApiClient: User
         var userObject: User? = null
 
         if (userLoginCall.isSuccessful) {
-            userObject = userLoginCall.body()!!.user_data
+            userObject = userLoginCall.body()?.user_data ?: return null
             Log.d("бялва", "${userLoginCall.body()}")
             val sharedPreferences = context.getSharedPreferences("main", Context.MODE_PRIVATE)
             sharedPreferences.edit().apply {
