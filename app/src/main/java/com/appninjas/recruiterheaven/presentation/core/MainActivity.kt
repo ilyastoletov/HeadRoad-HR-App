@@ -1,4 +1,4 @@
-package com.appninjas.recruiterheaven.presentation
+package com.appninjas.recruiterheaven.presentation.core
 
 import android.content.Context
 import android.os.Bundle
@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
             when(nd.id) {
                 R.id.authFragment -> bottomNavigationView.visibility = View.GONE
                 R.id.createVacancyFragment -> bottomNavigationView.visibility = View.GONE
+                R.id.vacancyInfoFragment -> bottomNavigationView.visibility = View.GONE
                 else -> bottomNavigationView.visibility = View.VISIBLE
             }
         }

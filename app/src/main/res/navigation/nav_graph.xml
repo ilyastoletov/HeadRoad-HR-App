@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_navVacancies_to_createVacancyFragment"
             app:destination="@id/createVacancyFragment" />
+        <action
+            android:id="@+id/action_navVacancies_to_vacancyInfoFragment"
+            app:destination="@id/vacancyInfoFragment" />
     </fragment>
     <fragment
         android:id="@+id/authFragment"
@@ -53,4 +56,9 @@
         android:name="com.appninjas.recruiterheaven.presentation.screens.vacancies.create_vacancy.CreateVacancyFragment"
         android:label="CreateVacancyFragment"
         tools:layout="@layout/fragment_create_vacancy"/>
+    <fragment
+        android:id="@+id/vacancyInfoFragment"
+        android:name="com.appninjas.recruiterheaven.presentation.screens.vacancies.vacancy_info.VacancyInfoFragment"
+        android:label="VacancyInfoFragment"
+        tools:layout="@layout/fragment_vacancy_info"/>
 </navigation>

@@ -20,7 +20,7 @@ class AuthFragment : Fragment() {
     private val binding: FragmentAuthenticationBinding
         get() = _binding ?: throw Exception("Fragment authentication binding = null")
 
-    private val viewModel: AuthViewModel by viewModels<AuthViewModel>()
+    private val viewModel: AuthViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,

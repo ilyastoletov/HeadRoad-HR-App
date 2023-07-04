@@ -1,7 +1,6 @@
 package com.appninjas.recruiterheaven.presentation.screens.vacancies.create_vacancy
 
-import android.icu.text.NumberFormat
-import android.icu.util.Currency
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,15 +8,25 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.appninjas.domain.model.dto.CreateVacancyDto
 import com.appninjas.recruiterheaven.R
 import com.appninjas.recruiterheaven.databinding.FragmentCreateVacancyBinding
+import com.appninjas.recruiterheaven.presentation.utils.SHARED_PREFS_NAME
+import com.appninjas.recruiterheaven.presentation.utils.USER_ID_KEY
+import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.regex.Pattern
 
+@AndroidEntryPoint
 class CreateVacancyFragment : Fragment() {
 
     private lateinit var binding: FragmentCreateVacancyBinding
+    private val viewModel: CreateVacancyViewModel by viewModels()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentCreateVacancyBinding.inflate(inflater, container, false)
@@ -31,28 +40,46 @@ class CreateVacancyFragment : Fragment() {
 
     private fun initUI() {
         binding.backToVacanciesButton.setOnClickListener { findNavController().navigate(R.id.navVacancies) }
-        binding.salaryEditText.addTextChangedListener(salaryTextWatcher)
+
+        binding.buttonCreateVacancy.setOnClickListener {
+            if (validateInputFields()) {
+                val vacancyDto = CreateVacancyDto(
+                    createdAt = getTodayDate(),
+                    department = binding.departmentEditText.text.toString(),
+                    title = binding.vacancyPositionEditText.text.toString(),
+                    experience = binding.experienceEditText.text.toString(),
+                    salary = binding.salaryEditText.text.toString() + binding.currencyChooseSpinner.selectedItem.toString(),
+                    requirements = binding.requirementsEditText.text.toString(),
+                    conditions = binding.conditionsEditText.text.toString(),
+                    job_duties = binding.jobDutiesEditText.text.toString(),
+                    authorId = getAuthorId()
+                )
+                viewModel.createVacancy(vacancyDto)
+            }
+        }
     }
 
-    private val salaryTextWatcher = object : TextWatcher {
-        override fun beforeTextChanged(text: CharSequence?, start: Int, before: Int, count: Int) {
-            Log.d("Just useless log", "Hey! Look at this: $text")
-        }
-
-        override fun onTextChanged(text: CharSequence?, start: Int, end: Int, count: Int) {
-            Log.d("Just useless log", "Hey! Look at this: $text")
-        }
-
-        override fun afterTextChanged(editableString: Editable?) {
-            val formatter = NumberFormat.getCurrencyInstance()
-            formatter.apply {
-                maximumFractionDigits = 0
-                currency = Currency.getInstance("RUB")
+    private fun validateInputFields(): Boolean {
+        with(binding) {
+            if (vacancyPositionEditText.text.isEmpty() || departmentEditText.text.isEmpty() || salaryEditText.text.isEmpty() ||
+                    jobDutiesEditText.text.isEmpty() || conditionsEditText.text.isEmpty() || vacancyDescriptionEditText.text.isEmpty() ||
+                    experienceEditText.text.isEmpty() || requirementsEditText.text.isEmpty()) {
+                Toast.makeText(requireContext(), "Вы заполнили не все поля", Toast.LENGTH_SHORT).show()
+                return false
+            } else {
+                return true
             }
-            val newText = formatter.format(editableString.toString())
-            Log.d("Some useless log", "$newText")
-            binding.salaryEditText.setText(newText, TextView.BufferType.EDITABLE)
         }
+    }
+
+    private fun getTodayDate(): String {
+        val sdf = SimpleDateFormat("dd.MM.yyyy")
+        return sdf.format(Date())
+    }
+
+    private fun getAuthorId(): String {
+        val sharedPrefsInstance = requireActivity().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
+        return sharedPrefsInstance.getString(USER_ID_KEY, "")!!
     }
 
 }

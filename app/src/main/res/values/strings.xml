@@ -4,4 +4,19 @@
     <string name="calendar">Календарь</string>
     <string name="vacancies">Вакансии</string>
     <string name="applicants">Кандидаты</string>
+    <array name="currency">
+        <item>₽</item>
+        <item>$</item>
+        <item>€</item>
+    </array>
+    <array name="vacancies_filter">
+        <item>Статус</item>
+        <item>Отклики</item>
+        <item>По дате</item>
+    </array>
+    <array name="vacancy_status">
+        <item>Открыта</item>
+        <item>Пауза</item>
+        <item>Закрыта</item>
+    </array>
 </resources>

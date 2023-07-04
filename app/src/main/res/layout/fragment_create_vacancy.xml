@@ -54,12 +54,33 @@
             android:hint="Отдел / подразделение"
             android:layout_marginTop="5dp"/>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
         <EditText
             android:id="@+id/salary_editText"
-            android:layout_width="match_parent"
+            android:layout_width="120dp"
             android:layout_height="50dp"
             android:hint="Зарплата"
             android:inputType="number"
+            android:layout_marginTop="5dp"/>
+
+            <Spinner
+                android:id="@+id/currency_choose_spinner"
+                android:layout_width="105dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:entries="@array/currency"/>
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/experience_editText"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Требуемый опыт"
             android:layout_marginTop="5dp"/>
 
         <EditText
@@ -67,6 +88,13 @@
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:hint="Обязанности"
+            android:layout_marginTop="5dp"/>
+
+        <EditText
+            android:id="@+id/requirements_editText"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:hint="Требования"
             android:layout_marginTop="5dp"/>
 
         <EditText

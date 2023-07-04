@@ -10,7 +10,7 @@ import com.appninjas.domain.model.Vacancy
 import com.appninjas.recruiterheaven.R
 import com.appninjas.recruiterheaven.databinding.VacancyCardBinding
 
-class VacancyAdapter(private val vacancyList: List<Vacancy>) : RecyclerView.Adapter<VacancyAdapter.Holder>() {
+class VacancyAdapter(private val vacancyList: List<Vacancy>, private val listener: VacancyClickListener) : RecyclerView.Adapter<VacancyAdapter.Holder>() {
 
     inner class Holder(view: View, private val binding: VacancyCardBinding) : RecyclerView.ViewHolder(view) {
         fun bind(model: Vacancy) {
@@ -25,6 +25,7 @@ class VacancyAdapter(private val vacancyList: List<Vacancy>) : RecyclerView.Adap
                 vacancyQuantity.text = model.responderIds.size.toString() + " откликов"
                 vacancyDate.text = model.createdAt
                 vacancyName.text = model.title
+                vacancyCard.setOnClickListener{ listener.onClick(model.vacancyId) }
             }
         }
     }
@@ -39,5 +40,9 @@ class VacancyAdapter(private val vacancyList: List<Vacancy>) : RecyclerView.Adap
     }
 
     override fun getItemCount(): Int = vacancyList.size
+
+    interface VacancyClickListener {
+        fun onClick(vacancyId: String)
+    }
 
 }

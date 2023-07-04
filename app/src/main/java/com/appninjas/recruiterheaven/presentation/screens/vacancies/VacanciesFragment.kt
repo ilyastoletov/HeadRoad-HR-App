@@ -42,7 +42,7 @@ class VacanciesFragment : Fragment() {
     private fun initUI() {
         viewModel.getVacancies(getUserId())
         viewModel.vacanciesList.observe(viewLifecycleOwner) {vacancies ->
-            val vacanciesAdapter = VacancyAdapter(vacancies)
+            val vacanciesAdapter = VacancyAdapter(vacancies, vacanciesClickListener)
             binding.rvVacancies.apply {
                 adapter = vacanciesAdapter
                 layoutManager = LinearLayoutManager(requireContext())
@@ -60,6 +60,14 @@ class VacanciesFragment : Fragment() {
     private fun getUserId(): String {
         val sharedPrefs = requireActivity().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
         return sharedPrefs.getString(USER_ID_KEY, "")!!
+    }
+
+    private val vacanciesClickListener = object : VacancyAdapter.VacancyClickListener {
+        override fun onClick(vacancyId: String) {
+            val navigationBundle = Bundle()
+            navigationBundle.putString("vacancyId", vacancyId)
+            findNavController().navigate(R.id.vacancyInfoFragment, navigationBundle)
+        }
     }
 
     companion object {
