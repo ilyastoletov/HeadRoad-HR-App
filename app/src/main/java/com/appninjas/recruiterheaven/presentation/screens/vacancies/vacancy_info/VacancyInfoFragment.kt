@@ -1,5 +1,7 @@
 package com.appninjas.recruiterheaven.presentation.screens.vacancies.vacancy_info
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -8,6 +10,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -33,24 +36,8 @@ class VacancyInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initMenu()
         initTabLayout()
         initUI()
-    }
-
-    private fun initMenu() {
-        val menuHost: MenuHost = requireActivity()
-        menuHost.addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.vacancy_edit_menu, menu)
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean = when(menuItem.itemId) {
-                R.id.edit_vacancy_button -> { true }
-                R.id.delete_vacancy_button -> { true }
-                else -> false
-            }
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     private fun initTabLayout() {
@@ -70,14 +57,20 @@ class VacancyInfoFragment : Fragment() {
         }
 
         binding.backToVacanciesButton.setOnClickListener { findNavController().navigate(R.id.navVacancies) }
+
         binding.showPopupMenuButton.setOnClickListener { v ->
             val popup = PopupMenu(requireContext(), v)
             val inflater: MenuInflater = popup.menuInflater
             inflater.inflate(R.menu.vacancy_edit_menu, popup.menu)
             popup.setOnMenuItemClickListener {menuItem ->
                 when(menuItem.itemId) {
-                    R.id.edit_vacancy_button -> { true }
-                    R.id.delete_vacancy_button -> { true }
+                    R.id.edit_vacancy_button -> {
+                        val bundle = Bundle()
+                        bundle.putString("vacancyId", getVacancyId())
+                        findNavController().navigate(R.id.createVacancyFragment, bundle)
+                        true
+                    }
+                    R.id.delete_vacancy_button -> { deleteVacancyConfirmation(); true }
                     else -> false
                 }
             }
@@ -86,5 +79,26 @@ class VacancyInfoFragment : Fragment() {
     }
 
     private fun getVacancyId() = requireArguments().getString("vacancyId")!!
+
+    private fun deleteVacancyConfirmation() {
+        val dialogButtonsClickListener = DialogInterface.OnClickListener { dialog, element ->
+            when(element) {
+                DialogInterface.BUTTON_POSITIVE -> {
+                    viewModel.deleteVacancy(getVacancyId())
+                    findNavController().navigate(R.id.navVacancies)
+                    Toast.makeText(requireContext(), "Вакансия удалена", Toast.LENGTH_SHORT).show()
+                }
+                DialogInterface.BUTTON_NEGATIVE -> dialog.cancel()
+            }
+        }
+        val dialog = AlertDialog.Builder(requireContext())
+            .setTitle("Удалить вакансию?")
+            .setMessage("Вы действительно хотите удалить эту вакансию?")
+            .setPositiveButton("Да", dialogButtonsClickListener)
+            .setNegativeButton("Нет", dialogButtonsClickListener)
+            .setCancelable(true)
+            .create()
+        dialog.show()
+    }
 
 }

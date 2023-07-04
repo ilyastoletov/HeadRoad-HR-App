@@ -8,11 +8,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.appninjas.domain.model.dto.CreateVacancyDto
+import com.appninjas.domain.model.dto.UpdateVacancyDto
 import com.appninjas.recruiterheaven.R
 import com.appninjas.recruiterheaven.databinding.FragmentCreateVacancyBinding
 import com.appninjas.recruiterheaven.presentation.utils.SHARED_PREFS_NAME
@@ -35,28 +37,66 @@ class CreateVacancyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initUI()
+        if (arguments != null) initEditUI() else initUI()
     }
 
     private fun initUI() {
         binding.backToVacanciesButton.setOnClickListener { findNavController().navigate(R.id.navVacancies) }
-
         binding.buttonCreateVacancy.setOnClickListener {
             if (validateInputFields()) {
-                val vacancyDto = CreateVacancyDto(
-                    createdAt = getTodayDate(),
-                    department = binding.departmentEditText.text.toString(),
-                    title = binding.vacancyPositionEditText.text.toString(),
-                    experience = binding.experienceEditText.text.toString(),
-                    salary = binding.salaryEditText.text.toString() + binding.currencyChooseSpinner.selectedItem.toString(),
-                    requirements = binding.requirementsEditText.text.toString(),
-                    conditions = binding.conditionsEditText.text.toString(),
-                    job_duties = binding.jobDutiesEditText.text.toString(),
-                    authorId = getAuthorId()
-                )
-                viewModel.createVacancy(vacancyDto)
+                viewModel.createVacancy(createDtoFromInputFields())
+                findNavController().navigate(R.id.navVacancies)
+                Toast.makeText(requireContext(), "Вакансия создана", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun initEditUI() {
+        viewModel.getVacancyDetails(getVacancyId())
+        viewModel.vacancyDetails.observe(viewLifecycleOwner) {vacancyData ->
+            binding.apply {
+                departmentEditText.setText(vacancyData.department)
+                vacancyPositionEditText.setText(vacancyData.title)
+                experienceEditText.setText(vacancyData.experience)
+                salaryEditText.setText(vacancyData.salary)
+                requirementsEditText.setText(vacancyData.requirements)
+                conditionsEditText.setText(vacancyData.requirements)
+                jobDutiesEditText.setText(vacancyData.job_duties)
+            }
+        }
+        binding.buttonCreateVacancy.setOnClickListener {
+            val updateDto = UpdateVacancyDto(
+                department = binding.departmentEditText.text.toString(),
+                title = binding.vacancyPositionEditText.text.toString(),
+                experience = binding.experienceEditText.text.toString(),
+                salary = binding.salaryEditText.text.toString() + binding.currencyChooseSpinner.selectedItem.toString(),
+                requirements = binding.requirementsEditText.text.toString(),
+                conditions = binding.conditionsEditText.text.toString(),
+                job_duties = binding.jobDutiesEditText.text.toString()
+            )
+            viewModel.updateVacancy(getVacancyId(), updateDto)
+            navigateToVacanciesInfo()
+        }
+    }
+
+    private fun createDtoFromInputFields(): CreateVacancyDto {
+        return CreateVacancyDto(
+            createdAt = getTodayDate(),
+            department = binding.departmentEditText.text.toString(),
+            title = binding.vacancyPositionEditText.text.toString(),
+            experience = binding.experienceEditText.text.toString(),
+            salary = binding.salaryEditText.text.toString() + binding.currencyChooseSpinner.selectedItem.toString(),
+            requirements = binding.requirementsEditText.text.toString(),
+            conditions = binding.conditionsEditText.text.toString(),
+            job_duties = binding.jobDutiesEditText.text.toString(),
+            authorId = getAuthorId()
+        )
+    }
+
+    private fun navigateToVacanciesInfo() {
+        val navigationBundle = Bundle()
+        navigationBundle.putString("vacancyId", getVacancyId())
+        findNavController().navigate(R.id.vacancyInfoFragment, navigationBundle)
     }
 
     private fun validateInputFields(): Boolean {
@@ -76,6 +116,8 @@ class CreateVacancyFragment : Fragment() {
         val sdf = SimpleDateFormat("dd.MM.yyyy")
         return sdf.format(Date())
     }
+
+    private fun getVacancyId(): String = requireArguments().getString("vacancyId")!!
 
     private fun getAuthorId(): String {
         val sharedPrefsInstance = requireActivity().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)

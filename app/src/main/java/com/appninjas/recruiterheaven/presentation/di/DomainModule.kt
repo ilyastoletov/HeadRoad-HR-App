@@ -6,6 +6,7 @@ import com.appninjas.domain.usecase.CreateVacancyUseCase
 import com.appninjas.domain.usecase.GetUserVacanciesUseCase
 import com.appninjas.domain.usecase.GetVacancyDetailsUseCase
 import com.appninjas.domain.usecase.LoginUseCase
+import com.appninjas.domain.usecase.UpdateVacancyUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,6 +34,11 @@ class DomainModule {
     @Provides
     fun provideGetVacancyDetailsUseCase(vacancyRepository: VacancyRepository): GetVacancyDetailsUseCase {
         return GetVacancyDetailsUseCase(vacancyRepository)
+    }
+
+    @Provides
+    fun provideUpdateVacancyUseCase(vacancyRepository: VacancyRepository): UpdateVacancyUseCase {
+        return UpdateVacancyUseCase(vacancyRepository)
     }
 
 }
