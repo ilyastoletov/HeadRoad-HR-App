@@ -1,8 +1,11 @@
 package com.appninjas.recruiterheaven.presentation.di
 
 import android.content.Context
+import com.appninjas.data.mapper.VacancyMapper
 import com.appninjas.data.network.clients.user.UserApiClient
 import com.appninjas.data.network.clients.vacancy.VacancyApiClient
+import com.appninjas.data.network.interceptor.LoggingInterceptor
+import com.appninjas.data.network.interceptor.TimeoutInterceptor
 import com.appninjas.data.repository.UserRepoImpl
 import com.appninjas.data.repository.VacancyRepoImpl
 import com.appninjas.domain.repository.UserRepository
@@ -26,18 +29,17 @@ class DataModule {
     @Provides
     @Singleton
     fun provideRetrofit(): Retrofit {
-        val builder: OkHttpClient.Builder = OkHttpClient().newBuilder()
-        builder.readTimeout(10, TimeUnit.SECONDS)
-        builder.connectTimeout(5, TimeUnit.SECONDS)
+        val okHttpClient = OkHttpClient.Builder()
+            .addNetworkInterceptor(LoggingInterceptor())
+            .addInterceptor(TimeoutInterceptor())
+            .readTimeout(30, TimeUnit.MINUTES)
+            .connectTimeout(30, TimeUnit.MINUTES)
+            .writeTimeout(30, TimeUnit.MINUTES)
+            .build()
 
-        val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
-        builder.addInterceptor(loggingInterceptor)
-
-        val client = builder.build()
         return Retrofit.Builder()
             .baseUrl("http://192.168.1.49:3000/")
-            .client(client)
+            .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
@@ -58,6 +60,6 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideVacancyRepository(vacancyApiClient: VacancyApiClient): VacancyRepository = VacancyRepoImpl(vacancyApiClient)
+    fun provideVacancyRepository(vacancyApiClient: VacancyApiClient): VacancyRepository = VacancyRepoImpl(vacancyApiClient = vacancyApiClient, mapper = VacancyMapper())
 
 }

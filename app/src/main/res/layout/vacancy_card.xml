@@ -77,12 +77,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
-        <Button
+        <TextView
+            android:id="@+id/new_applicants_quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="12 новых"
-            android:textSize="16sp"
-            android:fontFamily="@font/raleway_medium"
+            android:textSize="16.5sp"
+            android:fontFamily="@font/raleway_semi_bold"
             android:textAllCaps="false"
             android:fontFeatureSettings="pnum, lnum"
             android:layout_marginEnd="8dp"

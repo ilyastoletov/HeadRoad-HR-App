@@ -17,6 +17,7 @@ import com.appninjas.domain.model.dto.CreateVacancyDto
 import com.appninjas.domain.model.dto.UpdateVacancyDto
 import com.appninjas.recruiterheaven.R
 import com.appninjas.recruiterheaven.databinding.FragmentCreateVacancyBinding
+import com.appninjas.recruiterheaven.presentation.utils.NetworkChecker
 import com.appninjas.recruiterheaven.presentation.utils.SHARED_PREFS_NAME
 import com.appninjas.recruiterheaven.presentation.utils.USER_ID_KEY
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,9 +45,13 @@ class CreateVacancyFragment : Fragment() {
         binding.backToVacanciesButton.setOnClickListener { findNavController().navigate(R.id.navVacancies) }
         binding.buttonCreateVacancy.setOnClickListener {
             if (validateInputFields()) {
-                viewModel.createVacancy(createDtoFromInputFields())
-                findNavController().navigate(R.id.navVacancies)
-                Toast.makeText(requireContext(), "Вакансия создана", Toast.LENGTH_SHORT).show()
+                if (hasNetwork()) {
+                    viewModel.createVacancy(createDtoFromInputFields())
+                    findNavController().navigate(R.id.navVacancies)
+                    Toast.makeText(requireContext(), "Вакансия создана", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), "Отсутствует соединение с интернетом", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
@@ -65,17 +70,23 @@ class CreateVacancyFragment : Fragment() {
             }
         }
         binding.buttonCreateVacancy.setOnClickListener {
-            val updateDto = UpdateVacancyDto(
-                department = binding.departmentEditText.text.toString(),
-                title = binding.vacancyPositionEditText.text.toString(),
-                experience = binding.experienceEditText.text.toString(),
-                salary = binding.salaryEditText.text.toString() + binding.currencyChooseSpinner.selectedItem.toString(),
-                requirements = binding.requirementsEditText.text.toString(),
-                conditions = binding.conditionsEditText.text.toString(),
-                job_duties = binding.jobDutiesEditText.text.toString()
-            )
-            viewModel.updateVacancy(getVacancyId(), updateDto)
-            navigateToVacanciesInfo()
+            if (validateInputFields()) {
+                if (hasNetwork()) {
+                    val updateDto = UpdateVacancyDto(
+                        department = binding.departmentEditText.text.toString(),
+                        title = binding.vacancyPositionEditText.text.toString(),
+                        experience = binding.experienceEditText.text.toString(),
+                        salary = binding.salaryEditText.text.toString() + binding.currencyChooseSpinner.selectedItem.toString(),
+                        requirements = binding.requirementsEditText.text.toString(),
+                        conditions = binding.conditionsEditText.text.toString(),
+                        job_duties = binding.jobDutiesEditText.text.toString()
+                    )
+                    viewModel.updateVacancy(getVacancyId(), updateDto)
+                    navigateToVacanciesInfo()
+                } else {
+                    Toast.makeText(requireContext(), "Отсутствует соединение с интернетом", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
@@ -123,5 +134,7 @@ class CreateVacancyFragment : Fragment() {
         val sharedPrefsInstance = requireActivity().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
         return sharedPrefsInstance.getString(USER_ID_KEY, "")!!
     }
+
+    private fun hasNetwork(): Boolean = NetworkChecker.checkIsNetworkAvailable(requireContext())
 
 }

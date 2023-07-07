@@ -2,17 +2,19 @@ package com.appninjas.recruiterheaven.presentation.screens.vacancies
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.appninjas.domain.model.Vacancy
 import com.appninjas.recruiterheaven.R
 import com.appninjas.recruiterheaven.databinding.FragmentVacanciesBinding
 import com.appninjas.recruiterheaven.presentation.adapter.VacancyAdapter
+import com.appninjas.recruiterheaven.presentation.utils.NetworkChecker
 import com.appninjas.recruiterheaven.presentation.utils.SHARED_PREFS_NAME
 import com.appninjas.recruiterheaven.presentation.utils.USER_ID_KEY
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,11 +27,7 @@ class VacanciesFragment : Fragment() {
     private var _binding: FragmentVacanciesBinding? = null
     private val binding: FragmentVacanciesBinding
         get() = _binding ?: throw Exception("FragmentCalendarBinding = null")
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentVacanciesBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -40,12 +38,19 @@ class VacanciesFragment : Fragment() {
     }
 
     private fun initUI() {
-        viewModel.getVacancies(getUserId())
-        viewModel.vacanciesList.observe(viewLifecycleOwner) {vacancies ->
-            val vacanciesAdapter = VacancyAdapter(vacancies, vacanciesClickListener)
-            binding.rvVacancies.apply {
-                adapter = vacanciesAdapter
-                layoutManager = LinearLayoutManager(requireContext())
+        val networkAvailable: Boolean = NetworkChecker.checkIsNetworkAvailable(requireContext())
+        Log.d("INTERNTE", networkAvailable.toString())
+        val vacanciesAdapter = VacancyAdapter(hasInternet = networkAvailable,
+            vacancyCardListener = vacanciesClickListener)
+        binding.rvVacancies.apply {
+            adapter = vacanciesAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+
+        if (networkAvailable) {
+            viewModel.getVacancies(getUserId())
+            viewModel.vacanciesList.observe(viewLifecycleOwner) { vacancies ->
+                vacanciesAdapter.setList(vacancies)
             }
         }
 
@@ -70,7 +75,5 @@ class VacanciesFragment : Fragment() {
         }
     }
 
-    companion object {
-        fun newInstance() = VacanciesFragment()
-    }
+
 }

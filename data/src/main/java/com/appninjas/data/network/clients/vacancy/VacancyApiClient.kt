@@ -1,5 +1,6 @@
 package com.appninjas.data.network.clients.vacancy
 
+import com.appninjas.data.network.clients.vacancy.dto.GetAllVacanciesDto
 import com.appninjas.domain.model.Vacancy
 import com.appninjas.domain.model.dto.CreateVacancyDto
 import com.appninjas.domain.model.dto.UpdateVacancyDto
@@ -13,7 +14,7 @@ import retrofit2.http.Query
 interface VacancyApiClient {
 
     @GET("/vacancy/getAll")
-    suspend fun getAllUserVacancies(@Query("user_id") userId: String): Array<Vacancy>
+    suspend fun getAllUserVacancies(@Query("user_id") userId: String): GetAllVacanciesDto
 
     @POST("/vacancy/create")
     suspend fun createVacancy(@Body vacancy: CreateVacancyDto)

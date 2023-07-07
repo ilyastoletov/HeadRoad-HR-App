@@ -38,6 +38,7 @@ class InfoSubFragment(private val vacancyId: String) : Fragment() {
             binding.apply {
                 vacancyTitle.text = vacancy.title
                 vacancyDepartment.text = vacancy.department
+                Log.d("TAGEX", "${vacancy.toString()}")
                 vacancyStatusChangeSpinner.setSelection(when(vacancy.vacancyStatus) {
                     VacancyStatus.OPEN -> 0
                     VacancyStatus.PAUSED -> 1
