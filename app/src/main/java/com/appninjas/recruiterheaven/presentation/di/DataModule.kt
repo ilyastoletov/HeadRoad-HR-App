@@ -2,12 +2,15 @@ package com.appninjas.recruiterheaven.presentation.di
 
 import android.content.Context
 import com.appninjas.data.mapper.VacancyMapper
+import com.appninjas.data.network.clients.applicant.ApplicantApiClient
 import com.appninjas.data.network.clients.user.UserApiClient
 import com.appninjas.data.network.clients.vacancy.VacancyApiClient
 import com.appninjas.data.network.interceptor.LoggingInterceptor
 import com.appninjas.data.network.interceptor.TimeoutInterceptor
+import com.appninjas.data.repository.ApplicantRepoImpl
 import com.appninjas.data.repository.UserRepoImpl
 import com.appninjas.data.repository.VacancyRepoImpl
+import com.appninjas.domain.repository.ApplicantRepository
 import com.appninjas.domain.repository.UserRepository
 import com.appninjas.domain.repository.VacancyRepository
 import dagger.Module
@@ -19,6 +22,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -54,6 +58,10 @@ class DataModule {
 
     @Provides
     @Singleton
+    fun provideApplicantApiService(retrofit: Retrofit): ApplicantApiClient = retrofit.create(ApplicantApiClient::class.java)
+
+    @Provides
+    @Singleton
     fun provideUserRepository(@ApplicationContext appContext: Context, userApiClient: UserApiClient): UserRepository {
         return UserRepoImpl(context = appContext, userApiClient = userApiClient)
     }
@@ -61,5 +69,9 @@ class DataModule {
     @Provides
     @Singleton
     fun provideVacancyRepository(vacancyApiClient: VacancyApiClient): VacancyRepository = VacancyRepoImpl(vacancyApiClient = vacancyApiClient, mapper = VacancyMapper())
+
+    @Provides
+    @Singleton
+    fun provideApplicantRepository(applicantApiClient: ApplicantApiClient): ApplicantRepository = ApplicantRepoImpl(applicantApiClient)
 
 }

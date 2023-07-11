@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/applicant_photo"
+        android:layout_width="60dp"
+        android:layout_height="55dp"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"
+        android:scaleType="centerCrop"
+        android:src="@drawable/img"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/applicant_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Евгений морозов"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/raleway_semi_bold"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@id/applicant_photo"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/applicant_short_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="22 года, Пермь, СПБГУ"
+        android:layout_marginStart="10dp"
+        android:fontFamily="@font/raleway_medium"
+        android:textSize="13sp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@id/applicant_photo"
+        app:layout_constraintTop_toBottomOf="@id/applicant_name"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

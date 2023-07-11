@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/applicants_layout_header"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/back_to_applicants_list_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_arrow_back_24"
+            android:layout_marginTop="3dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/applicant_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Имя кандидата"
+            android:fontFamily="@font/raleway_semi_bold"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toEndOf="@id/back_to_applicants_list_button"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/applicant_main_info_linear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/applicants_layout_header"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Евгений Марков"
+            android:fontFamily="@font/raleway_semi_bold"
+            android:textColor="@color/black"
+            android:textSize="22sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="29 лет, Москва"
+            android:fontFamily="@font/raleway_medium"
+            android:layout_marginTop="3dp"
+            android:textSize="18sp"
+            android:textColor="@color/tab_not_selected_text"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="МГУ, информатика"
+            android:maxWidth="200dp"
+            android:fontFamily="@font/raleway_medium"
+            android:layout_marginTop="2dp"
+            android:textSize="17sp"
+            android:textColor="@color/tab_not_selected_text"/>
+
+    </LinearLayout>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/img"
+        android:scaleType="centerCrop"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/applicants_layout_header" />
+
+    <LinearLayout
+        android:id="@+id/contacts_block"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/applicant_main_info_linear"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingStart="15dp"
+        android:layout_marginTop="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Контакты"
+            android:textColor="@color/tab_not_selected_text"
+            android:fontFamily="@font/raleway_semi_bold"
+            android:textSize="22sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Телефон"
+            android:textColor="@color/tab_not_selected_text"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/raleway_medium"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/applicant_phone_number_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+79649672201"
+            android:layout_marginTop="5dp"
+            android:textSize="17sp"
+            android:textColor="@color/main_blue" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Электронная почта"
+            android:textColor="@color/tab_not_selected_text"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/raleway_medium"
+            android:textSize="18sp"/>
+
+        <TextView
+            android:id="@+id/applicant_email_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="eveg.moroz@gmail.com"
+            android:layout_marginTop="5dp"
+            android:textSize="17sp"
+            android:textColor="@color/main_blue" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Социальные сети"
+            android:textColor="@color/tab_not_selected_text"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/raleway_medium"
+            android:textSize="18sp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/applicant_social_links_rv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"/>
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/applied_vacancy_block"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/contacts_block"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="100dp"
+            android:orientation="vertical"
+            android:layout_marginStart="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Отклик на вакансию"
+                android:fontFamily="@font/raleway_semi_bold"
+                android:textColor="@color/tab_not_selected_text"
+                android:textSize="20sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Senior Android Developer"
+                    android:layout_marginTop="5dp"
+                    android:textSize="19sp"
+                    android:fontFamily="@font/raleway_medium"
+                    android:textColor="@color/tab_selected_text"/>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="190dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    app:cardBackgroundColor="@color/main_blue"
+                    app:cardCornerRadius="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Посмотреть вакансию"
+                        android:textAlignment="center"
+                        android:layout_gravity="center"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/raleway_medium"
+                        android:textSize="14sp"/>
+
+                </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:cardCornerRadius="15dp"
+        app:cardBackgroundColor="@color/main_blue"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Взять в работу"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:fontFamily="@font/raleway_semi_bold"
+            android:textSize="25sp"
+            android:textColor="@color/white"/>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

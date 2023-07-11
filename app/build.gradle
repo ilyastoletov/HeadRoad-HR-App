@@ -55,6 +55,7 @@ dependencies {
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
     implementation 'com.github.MohamedWessam:no-internet-layout:0.1.1'
+    implementation 'com.squareup.picasso:picasso:2.8'
 
     def navigation_version = "2.5.3"
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
