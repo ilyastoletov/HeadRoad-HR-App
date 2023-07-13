@@ -33,7 +33,7 @@
         android:id="@+id/applicant_short_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="22 года, Пермь, СПБГУ"
+        android:text="22 года, Пермь"
         android:layout_marginStart="10dp"
         android:fontFamily="@font/raleway_medium"
         android:textSize="13sp"

@@ -44,10 +44,10 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, nd: NavDestination, _ ->
             when(nd.id) {
-                R.id.authFragment -> bottomNavigationView.visibility = View.GONE
-                R.id.createVacancyFragment -> bottomNavigationView.visibility = View.GONE
-                R.id.vacancyInfoFragment -> bottomNavigationView.visibility = View.GONE
-                else -> bottomNavigationView.visibility = View.VISIBLE
+                R.id.navVacancies -> bottomNavigationView.visibility = View.VISIBLE
+                R.id.navApplicants -> bottomNavigationView.visibility = View.VISIBLE
+                R.id.navMetrics -> bottomNavigationView.visibility = View.VISIBLE
+                else -> bottomNavigationView.visibility = View.GONE
             }
         }
     }

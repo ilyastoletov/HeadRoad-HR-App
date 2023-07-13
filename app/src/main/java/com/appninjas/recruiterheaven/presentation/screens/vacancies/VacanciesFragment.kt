@@ -77,7 +77,7 @@ class VacanciesFragment : Fragment() {
             override fun onItemSelected(parentView: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val sortedVacanciesList = when(position) {
                     0 -> vacanciesList.sortedBy { it.vacancyStatus }
-                    1 -> vacanciesList.sortedBy { it.responderIds.size }
+                    1 -> vacanciesList.sortedByDescending { it.responderIds.size }
                     2 -> vacanciesList.sortedByDescending { it.createdAt }
                     else -> vacanciesList
                 }

@@ -16,7 +16,7 @@ class ApplicantChildListAdapter(private val applicantsList: List<Applicant>,
             with(binding) {
                 Picasso.get().load(model.photo_url).into(applicantPhoto)
                 applicantName.text = model.name
-                applicantShortDescription.text = "${model.age}, ${model.city}, ${model.education}"
+                applicantShortDescription.text = "${model.age}, ${model.city}"
                 applicantProfileItem.setOnClickListener { applicantProfileCallback.onClick(model) }
             }
         }
