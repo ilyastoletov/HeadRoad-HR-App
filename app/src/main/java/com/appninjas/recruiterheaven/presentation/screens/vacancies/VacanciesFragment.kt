@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -39,7 +40,6 @@ class VacanciesFragment : Fragment() {
 
     private fun initUI() {
         val networkAvailable: Boolean = NetworkChecker.checkIsNetworkAvailable(requireContext())
-        Log.d("INTERNTE", networkAvailable.toString())
         val vacanciesAdapter = VacancyAdapter(hasInternet = networkAvailable,
             vacancyCardListener = vacanciesClickListener)
         binding.rvVacancies.apply {
@@ -50,7 +50,8 @@ class VacanciesFragment : Fragment() {
         if (networkAvailable) {
             viewModel.getVacancies(getUserId())
             viewModel.vacanciesList.observe(viewLifecycleOwner) { vacancies ->
-                vacanciesAdapter.setList(vacancies)
+                vacanciesAdapter.setList(vacancies.sortedBy { it.vacancyStatus })
+                initSpinner(vacancies, vacanciesAdapter)
             }
         }
 
@@ -65,6 +66,25 @@ class VacanciesFragment : Fragment() {
     private fun getUserId(): String {
         val sharedPrefs = requireActivity().getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
         return sharedPrefs.getString(USER_ID_KEY, "")!!
+    }
+
+    private fun initSpinner(vacanciesList: List<Vacancy>, adapter: VacancyAdapter) {
+        val spinnerItemChangeListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parentView: AdapterView<*>?) {
+                Log.d("TAG", "Random message")
+            }
+
+            override fun onItemSelected(parentView: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val sortedVacanciesList = when(position) {
+                    0 -> vacanciesList.sortedBy { it.vacancyStatus }
+                    1 -> vacanciesList.sortedBy { it.responderIds.size }
+                    2 -> vacanciesList.sortedByDescending { it.createdAt }
+                    else -> vacanciesList
+                }
+                adapter.setList(sortedVacanciesList)
+            }
+        }
+        binding.vacancyFilterSpinner.onItemSelectedListener = spinnerItemChangeListener
     }
 
     private val vacanciesClickListener = object : VacancyAdapter.VacancyClickListener {

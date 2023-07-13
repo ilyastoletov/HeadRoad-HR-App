@@ -3,8 +3,10 @@ package com.appninjas.recruiterheaven.presentation.di
 import com.appninjas.domain.repository.ApplicantRepository
 import com.appninjas.domain.repository.UserRepository
 import com.appninjas.domain.repository.VacancyRepository
+import com.appninjas.domain.usecase.ChangeVacancyStatusUseCase
 import com.appninjas.domain.usecase.CreateVacancyUseCase
 import com.appninjas.domain.usecase.DeleteVacancyUseCase
+import com.appninjas.domain.usecase.GetApplicantInfoUseCase
 import com.appninjas.domain.usecase.GetApplicantListUseCase
 import com.appninjas.domain.usecase.GetUserVacanciesUseCase
 import com.appninjas.domain.usecase.GetVacancyDetailsUseCase
@@ -50,8 +52,18 @@ class DomainModule {
     }
 
     @Provides
+    fun provideChangeVacancyStatusUseCase(vacancyRepository: VacancyRepository): ChangeVacancyStatusUseCase {
+        return ChangeVacancyStatusUseCase(vacancyRepository)
+    }
+
+    @Provides
     fun provideGetApplicantsListUseCase(applicantRepository: ApplicantRepository): GetApplicantListUseCase {
         return GetApplicantListUseCase(applicantRepository)
+    }
+
+    @Provides
+    fun provideGetApplicantInfoUseCase(applicantRepository: ApplicantRepository): GetApplicantInfoUseCase {
+        return GetApplicantInfoUseCase(applicantRepository)
     }
 
 }

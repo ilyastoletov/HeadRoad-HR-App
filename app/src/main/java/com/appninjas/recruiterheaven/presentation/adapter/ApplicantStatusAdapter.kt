@@ -8,15 +8,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.appninjas.recruiterheaven.databinding.ApplicantParentLayoutBinding
 import com.appninjas.recruiterheaven.presentation.adapter.model.ApplicantParentItem
 
-class ApplicantStatusAdapter() : RecyclerView.Adapter<ApplicantStatusAdapter.ApplicantParentItemHolder>() {
+class ApplicantStatusAdapter(private val applicantProfileCallback: ApplicantChildListAdapter.ApplicantProfileCallback) : RecyclerView.Adapter<ApplicantStatusAdapter.ApplicantParentItemHolder>() {
 
     private var applicantParentList: ArrayList<ApplicantParentItem> = arrayListOf()
 
     inner class ApplicantParentItemHolder(view: View, private val binding: ApplicantParentLayoutBinding) : RecyclerView.ViewHolder(view) {
         fun bind(model: ApplicantParentItem) {
             binding.applicantStatusText.text = model.title
+            binding.applicantCountText.text = model.applicantsList.size.toString()
 
-            val applicantsListAdapter = ApplicantChildListAdapter(model.applicantsList)
+            val applicantsListAdapter = ApplicantChildListAdapter(model.applicantsList, applicantProfileCallback)
             binding.applicantListRv.apply {
                 setHasFixedSize(true)
                 adapter = applicantsListAdapter
@@ -37,7 +38,7 @@ class ApplicantStatusAdapter() : RecyclerView.Adapter<ApplicantStatusAdapter.App
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ApplicantParentItemHolder {
-        val binding = ApplicantParentLayoutBinding.inflate(LayoutInflater.from(parent.context))
+        val binding = ApplicantParentLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ApplicantParentItemHolder(binding.root, binding)
     }
 

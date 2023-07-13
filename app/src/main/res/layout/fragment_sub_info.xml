@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingStart="15dp"
+    android:background="@color/secondary_background_color"
     android:paddingEnd="15dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -197,32 +198,6 @@
 
             <TextView
                 android:id="@+id/job_duties_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Loading..."
-                android:fontFamily="@font/raleway_medium"
-                android:textSize="17sp"
-                android:textColor="@color/black"
-                android:layout_marginTop="3dp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_marginTop="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Описание вакансии"
-                android:fontFamily="@font/raleway_medium"
-                android:textSize="18sp"
-                android:textColor="@color/tab_not_selected_text"/>
-
-            <TextView
-                android:id="@+id/vacancy_description_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Loading..."

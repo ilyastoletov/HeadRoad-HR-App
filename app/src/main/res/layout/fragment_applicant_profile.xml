@@ -59,6 +59,7 @@
         android:layout_marginTop="20dp">
 
         <TextView
+            android:id="@+id/applicant_name_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Евгений Марков"
@@ -67,6 +68,7 @@
             android:textSize="22sp"/>
 
         <TextView
+            android:id="@+id/age_and_city_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="29 лет, Москва"
@@ -76,6 +78,7 @@
             android:textColor="@color/tab_not_selected_text"/>
 
         <TextView
+            android:id="@+id/applicant_education_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="МГУ, информатика"
@@ -88,6 +91,7 @@
     </LinearLayout>
 
     <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/applicant_image"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginEnd="15dp"

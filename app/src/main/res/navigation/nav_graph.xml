@@ -61,4 +61,9 @@
         android:name="com.appninjas.recruiterheaven.presentation.screens.vacancies.vacancy_info.VacancyInfoFragment"
         android:label="VacancyInfoFragment"
         tools:layout="@layout/fragment_vacancy_info"/>
+    <fragment
+        android:id="@+id/applicantProfileFragment"
+        android:name="com.appninjas.recruiterheaven.presentation.screens.applicant.profile.ApplicantProfileFragment"
+        android:label="ApplicantProfileFragment"
+        tools:layout="@layout/fragment_applicant_profile"/>
 </navigation>

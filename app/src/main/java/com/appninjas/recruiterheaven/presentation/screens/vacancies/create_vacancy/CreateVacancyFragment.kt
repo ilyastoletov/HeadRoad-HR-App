@@ -88,6 +88,8 @@ class CreateVacancyFragment : Fragment() {
                 }
             }
         }
+
+        binding.backToVacanciesButton.setOnClickListener { requireActivity().supportFragmentManager.popBackStackImmediate() }
     }
 
     private fun createDtoFromInputFields(): CreateVacancyDto {
@@ -113,7 +115,7 @@ class CreateVacancyFragment : Fragment() {
     private fun validateInputFields(): Boolean {
         with(binding) {
             if (vacancyPositionEditText.text.isEmpty() || departmentEditText.text.isEmpty() || salaryEditText.text.isEmpty() ||
-                    jobDutiesEditText.text.isEmpty() || conditionsEditText.text.isEmpty() || vacancyDescriptionEditText.text.isEmpty() ||
+                    jobDutiesEditText.text.isEmpty() || conditionsEditText.text.isEmpty() ||
                     experienceEditText.text.isEmpty() || requirementsEditText.text.isEmpty()) {
                 Toast.makeText(requireContext(), "Вы заполнили не все поля", Toast.LENGTH_SHORT).show()
                 return false

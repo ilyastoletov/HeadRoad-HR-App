@@ -1,7 +1,6 @@
 package com.appninjas.recruiterheaven.presentation.di
 
 import android.content.Context
-import com.appninjas.data.mapper.VacancyMapper
 import com.appninjas.data.network.clients.applicant.ApplicantApiClient
 import com.appninjas.data.network.clients.user.UserApiClient
 import com.appninjas.data.network.clients.vacancy.VacancyApiClient
@@ -42,7 +41,7 @@ class DataModule {
             .build()
 
         return Retrofit.Builder()
-            .baseUrl("http://192.168.1.49:3000/")
+            .baseUrl("http://95.163.236.27:3000/")
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
@@ -68,7 +67,7 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideVacancyRepository(vacancyApiClient: VacancyApiClient): VacancyRepository = VacancyRepoImpl(vacancyApiClient = vacancyApiClient, mapper = VacancyMapper())
+    fun provideVacancyRepository(vacancyApiClient: VacancyApiClient): VacancyRepository = VacancyRepoImpl(vacancyApiClient = vacancyApiClient)
 
     @Provides
     @Singleton

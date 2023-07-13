@@ -9,4 +9,7 @@ interface ApplicantApiClient {
     @GET("/applicant/getAll")
     suspend fun getApplicantsListByVacancyId(@Query("vacancyId") vacancyId: String): Array<Applicant>
 
+    @GET("/applicant/getById")
+    suspend fun getApplicantInfo(@Query("applicantId") applicantId: String): Applicant
+
 }

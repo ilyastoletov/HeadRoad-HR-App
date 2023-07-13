@@ -50,8 +50,6 @@ class InfoSubFragment(private val vacancyId: String) : Fragment() {
                 requirementsText.text = vacancy.requirements
                 conditionsText.text = vacancy.conditions
                 jobDutiesText.text= vacancy.job_duties
-                // TODO(ДОБАВИТЬ DESCRIPTION повсюду)
-                vacancyDescriptionText.text = "В разработке"
             }
         }
     }
@@ -70,9 +68,9 @@ class InfoSubFragment(private val vacancyId: String) : Fragment() {
         }
 
         override fun onItemSelected(parentView: AdapterView<*>?, View: View?, position: Int, id: Long) = when(position) {
-            0 -> { binding.vacancyStatusCard.setCardBackgroundColor(Color.parseColor("#44C879")) }
-            1 -> { binding.vacancyStatusCard.setCardBackgroundColor(Color.parseColor("#f2e018")) }
-            2 -> { binding.vacancyStatusCard.setCardBackgroundColor(Color.parseColor("#f24918")) }
+            0 -> { binding.vacancyStatusCard.setCardBackgroundColor(Color.parseColor("#44C879")); viewModel.changeVacancyStatus(vacancyId, VacancyStatus.OPEN) }
+            1 -> { binding.vacancyStatusCard.setCardBackgroundColor(Color.parseColor("#f2e018")); viewModel.changeVacancyStatus(vacancyId, VacancyStatus.PAUSED) }
+            2 -> { binding.vacancyStatusCard.setCardBackgroundColor(Color.parseColor("#f24918")); viewModel.changeVacancyStatus(vacancyId, VacancyStatus.STOPPED) }
             else -> {}
         }
     }

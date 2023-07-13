@@ -6,10 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.appninjas.domain.enums.ApplicantStatus
 import com.appninjas.domain.model.Applicant
+import com.appninjas.recruiterheaven.R
 import com.appninjas.recruiterheaven.databinding.FragmentSubApplicantsListBinding
+import com.appninjas.recruiterheaven.presentation.adapter.ApplicantChildListAdapter
 import com.appninjas.recruiterheaven.presentation.adapter.ApplicantStatusAdapter
 import com.appninjas.recruiterheaven.presentation.adapter.model.ApplicantParentItem
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,7 +34,7 @@ class ApplicantsListSubFragment(private val vacancyId: String) : Fragment() {
     }
 
     private fun initUI() {
-        val applicantsListAdapter = ApplicantStatusAdapter()
+        val applicantsListAdapter = ApplicantStatusAdapter(applicantProfileCallback)
         binding.applicantsStatusRv.apply {
             adapter = applicantsListAdapter
             layoutManager = LinearLayoutManager(requireContext())
@@ -49,6 +52,14 @@ class ApplicantsListSubFragment(private val vacancyId: String) : Fragment() {
             applicantsList.add(ApplicantParentItem(title = applicantCategory, applicantsList = applicantsMap[applicantCategory]!!))
         }
         return applicantsList
+    }
+
+    private val applicantProfileCallback = object : ApplicantChildListAdapter.ApplicantProfileCallback {
+        override fun onClick(model: Applicant) {
+            val bundle = Bundle()
+            bundle.putString("applicantId", model.applicantId)
+            findNavController().navigate(R.id.applicantProfileFragment, bundle)
+        }
     }
 
 }

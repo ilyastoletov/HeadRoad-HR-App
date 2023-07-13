@@ -104,13 +104,6 @@
             android:hint="Условия"
             android:layout_marginTop="5dp"/>
 
-        <EditText
-            android:id="@+id/vacancy_description_editText"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:hint="Общее описание"
-            android:layout_marginTop="5dp"/>
-
         <androidx.cardview.widget.CardView
             android:id="@+id/button_create_vacancy"
             android:layout_width="match_parent"

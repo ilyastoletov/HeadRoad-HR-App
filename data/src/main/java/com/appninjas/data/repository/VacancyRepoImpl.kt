@@ -1,17 +1,16 @@
 package com.appninjas.data.repository
 
-import com.appninjas.data.mapper.VacancyMapper
 import com.appninjas.data.network.clients.vacancy.VacancyApiClient
+import com.appninjas.domain.enums.VacancyStatus
 import com.appninjas.domain.model.Vacancy
 import com.appninjas.domain.model.dto.CreateVacancyDto
 import com.appninjas.domain.model.dto.UpdateVacancyDto
 import com.appninjas.domain.repository.VacancyRepository
 
-class VacancyRepoImpl(private val vacancyApiClient: VacancyApiClient,
-                      private val mapper: VacancyMapper) : VacancyRepository {
+class VacancyRepoImpl(private val vacancyApiClient: VacancyApiClient) : VacancyRepository {
 
     override suspend fun getVacancies(userId: String): ArrayList<Vacancy> {
-        return mapper.mapAllVacanciesDtoToList(vacancyApiClient.getAllUserVacancies(userId).toCollection(ArrayList()))
+        return vacancyApiClient.getAllUserVacancies(userId).toCollection(ArrayList())
     }
 
     override suspend fun createVacancy(vacancy: CreateVacancyDto) {
@@ -28,6 +27,10 @@ class VacancyRepoImpl(private val vacancyApiClient: VacancyApiClient,
 
     override suspend fun deleteVacancy(vacancyId: String) {
         vacancyApiClient.deleteVacancy(vacancyId)
+    }
+
+    override suspend fun changeVacancyStatus(vacancyId: String, status: VacancyStatus) {
+        vacancyApiClient.changeVacancyStatus(vacancyId, status.toString())
     }
 
 }

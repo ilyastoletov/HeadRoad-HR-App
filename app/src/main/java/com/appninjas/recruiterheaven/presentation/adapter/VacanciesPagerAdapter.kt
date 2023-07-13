@@ -12,7 +12,7 @@ class VacanciesPagerAdapter(fragmentActivity: FragmentActivity, private val vaca
 
     override fun createFragment(position: Int): Fragment = when(position) {
         0 -> InfoSubFragment(vacancyId)
-        1 -> ApplicantsListSubFragment()
+        1 -> ApplicantsListSubFragment(vacancyId)
         else -> InfoSubFragment(vacancyId)
     }
 

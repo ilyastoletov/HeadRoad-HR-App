@@ -40,7 +40,7 @@ class VacancyAdapter(private val hasInternet: Boolean,
                 LoadingHolder(loadingLayoutView)
             }
             LOADED_SUCCESSFULLY_STATE -> {
-                val binding = VacancyCardBinding.inflate(LayoutInflater.from(parent.context))
+                val binding = VacancyCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 VacancyHolder(binding.root, binding)
             }
             else -> throw IllegalArgumentException("Invalid view type")

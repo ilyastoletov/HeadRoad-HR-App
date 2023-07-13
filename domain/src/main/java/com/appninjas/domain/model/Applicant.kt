@@ -7,6 +7,7 @@ data class Applicant(
     val appliedVacancyId: String,
     val appliedAt: String,
     val name: String,
+    val age: Int = 0,
     val experience: String,
     val education: String,
     val wanted_salary: String,

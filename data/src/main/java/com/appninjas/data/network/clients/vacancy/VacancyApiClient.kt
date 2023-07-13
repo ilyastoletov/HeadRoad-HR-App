@@ -14,7 +14,7 @@ import retrofit2.http.Query
 interface VacancyApiClient {
 
     @GET("/vacancy/getAll")
-    suspend fun getAllUserVacancies(@Query("user_id") userId: String): GetAllVacanciesDto
+    suspend fun getAllUserVacancies(@Query("user_id") userId: String): Array<Vacancy>
 
     @POST("/vacancy/create")
     suspend fun createVacancy(@Body vacancy: CreateVacancyDto)
@@ -27,5 +27,8 @@ interface VacancyApiClient {
 
     @DELETE("/vacancy/delete")
     suspend fun deleteVacancy(@Query("vacancyId") vacancyId: String)
+
+    @PATCH("/vacancy/changeStatus")
+    suspend fun changeVacancyStatus(@Query("vacancyId") vacancyId: String, @Query("status") vacancyStatus: String)
 
 }
