@@ -19,7 +19,7 @@ import com.appninjas.recruiterheaven.presentation.adapter.model.SocialNetwork
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
-
+// TODO("Profile image resizing feature")
 @AndroidEntryPoint
 class ApplicantProfileFragment : Fragment() {
 
@@ -47,11 +47,15 @@ class ApplicantProfileFragment : Fragment() {
                 ageAndCityText.text = "${applicant.age}, ${applicant.city}"
                 applicantEducationText.text = applicant.education
                 applicantPhoneNumberTv.text = applicant.phone
-                applicantPhoneNumberTv.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                 applicantEmailTv.text = applicant.email
-                applicantEmailTv.paintFlags = Paint.UNDERLINE_TEXT_FLAG
                 Picasso.get().load(applicant.photo_url).into(applicantImage)
                 applicantExperienceText.text = applicant.experience
+                applicantWantedSalaryText.text = applicant.wanted_salary
+                applicantResumeUrlText.text = applicant.resume_url
+
+                applicantPhoneNumberTv.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+                applicantEmailTv.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+                applicantResumeUrlText.paintFlags = Paint.UNDERLINE_TEXT_FLAG
 
                 viewModel.getVacancyTitle(applicant.appliedVacancyId)
                 viewModel.vacancyTitle.observe(viewLifecycleOwner) {vacancyTitle ->
@@ -61,6 +65,11 @@ class ApplicantProfileFragment : Fragment() {
                 applicantPhoneNumberTv.setOnClickListener {
                     val phoneIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:${applicant.phone}"))
                     startActivity(phoneIntent)
+                }
+
+                applicantResumeUrlText.setOnClickListener {
+                    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(applicant.resume_url))
+                    startActivity(browserIntent)
                 }
 
                 val socialNetworkAdapter = SocialNetworkAdapter(applicant.social_media_links.map { SocialNetwork(link = it) }, socialNetworkCallback)

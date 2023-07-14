@@ -1,14 +1,14 @@
 package com.appninjas.recruiterheaven.presentation.screens.applicant.set_status
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioGroup
 import android.widget.TextView
+import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import com.appninjas.domain.enums.ApplicantStatus
 import com.appninjas.recruiterheaven.R
@@ -38,6 +38,8 @@ class ApplicantSetStatusFragment : Fragment() {
         viewModel.getApplicantDetails(applicantId)
         viewModel.applicantDetails.observe(viewLifecycleOwner) {applicant ->
 
+            binding.applicantNameHeader.text = applicant.name
+
             viewModel.getVacancyTitle(applicant.appliedVacancyId)
             viewModel.vacancyTitle.observe(viewLifecycleOwner) {vacancyTitle ->
                 binding.applicantStatusRadioGroup.setOnCheckedChangeListener { _, id ->
@@ -66,17 +68,54 @@ class ApplicantSetStatusFragment : Fragment() {
         }
 
         binding.applicantStatusConfirmButton.setOnClickListener {
-            val infoDialog = AlertDialog.Builder(requireContext())
-                .setTitle("Информация")
-                .setMessage("Статус кандидата успешно сменен. Обновите список, потянув его вверх, чтобы кандидат перешел в нужную категорию")
-                .setPositiveButton("Ок") { dialog, _ -> dialog.cancel() }
-                .setCancelable(true)
-                .create()
-            infoDialog.show()
-            requireActivity().supportFragmentManager.popBackStackImmediate()
+            if (validateRadioAndLetterInput()) {
+                viewModel.applicantChangeStatus(
+                    applicantId,
+                    buttonIdToApplicantStringStatus(binding.applicantStatusRadioGroup.checkedRadioButtonId)
+                )
+                val infoDialog = AlertDialog.Builder(requireContext())
+                    .setTitle("Информация")
+                    .setMessage("Статус кандидата успешно сменен. Обновите список, потянув его вверх, чтобы кандидат перешел в нужную категорию")
+                    .setPositiveButton("Ок") { dialog, _ -> dialog.cancel() }
+                    .setCancelable(true)
+                    .create()
+                infoDialog.show()
+                requireActivity().supportFragmentManager.popBackStackImmediate("com.appninjas.recruiterheaven.presentation.screens.vacancies.vacancy_info.VacancyInfoFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE)
+            }
         }
 
         binding.backToApplicantInfoButton.setOnClickListener { requireActivity().supportFragmentManager.popBackStackImmediate() }
+    }
+
+    private fun buttonIdToApplicantStringStatus(buttonId: Int): ApplicantStatus = when(buttonId) {
+        R.id.test_task_status_radio -> ApplicantStatus.TEST_TASK
+        R.id.phone_interview_status_radio -> ApplicantStatus.PHONE_INTERVIEW
+        R.id.technical_interview_status_radio -> ApplicantStatus.TECH_INTERVIEW
+        R.id.offer_status_radio -> ApplicantStatus.OFFER
+        R.id.onboarding_status_radio -> ApplicantStatus.ONBOARDING
+        R.id.applicant_decline_status_radio -> ApplicantStatus.APPLICANT_DECLINE
+        R.id.recruiter_decline_status_radio -> ApplicantStatus.RECRUITER_DECLINE
+        else -> ApplicantStatus.NEW
+    }
+
+    private fun validateRadioAndLetterInput(): Boolean {
+        return if (binding.applicantStatusRadioGroup.isEmpty()) {
+            showAlertMessage("Выберите статус, который хотите задать кандидату")
+            false
+        } else if (binding.applicantLetterEditText.text.isEmpty()) {
+            showAlertMessage("Заполните поле для сопроводительного письма")
+            false
+        } else true
+    }
+
+    private fun showAlertMessage(message: String) {
+        val warningDialog = AlertDialog.Builder(requireContext())
+            .setTitle("Внимание")
+            .setMessage(message)
+            .setPositiveButton("Хорошо") { dialog, _ -> dialog.cancel() }
+            .setCancelable(true)
+            .create()
+        warningDialog.show()
     }
 
 }
