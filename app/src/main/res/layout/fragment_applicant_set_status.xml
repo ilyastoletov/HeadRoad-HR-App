@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/applicant_set_status_header"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:padding="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/back_to_applicant_info_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_arrow_back_24"
+            android:layout_marginTop="3dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/applicant_name_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Имя кандидата"
+            android:maxLength="27"
+            android:fontFamily="@font/raleway_semi_bold"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toEndOf="@id/back_to_applicant_info_button"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        android:elevation="7dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/applicant_set_status_header">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/choose_status_applicant_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Выбор статуса"
+            android:textColor="@color/black"
+            android:fontFamily="@font/raleway_semi_bold"
+            android:textSize="20sp"
+            android:paddingStart="15dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="15dp"
+                android:paddingBottom="17dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/choose_status_applicant_text">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Тестовое задание"
+                    style="@style/mediumTextStyle"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Телефонное интервью"
+                    android:layout_marginTop="15dp"
+                    style="@style/mediumTextStyle"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Техническое интервью"
+                    android:layout_marginTop="15dp"
+                    style="@style/mediumTextStyle"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Оффер"
+                    style="@style/mediumTextStyle"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Онбординг"
+                    android:layout_marginTop="15dp"
+                    style="@style/mediumTextStyle"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Отказ кандидата"
+                    android:layout_marginTop="15dp"
+                    style="@style/mediumTextStyle"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Отказ рекрутера"
+                    android:layout_marginTop="15dp"
+                    style="@style/mediumTextStyle"/>
+
+            </LinearLayout>
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="20dp"
+                app:layout_constraintTop_toBottomOf="@id/choose_status_applicant_text">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"/>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"/>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"/>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"/>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"/>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"/>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"/>
+
+            </RadioGroup>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
