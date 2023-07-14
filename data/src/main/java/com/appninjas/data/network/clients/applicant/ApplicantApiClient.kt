@@ -1,7 +1,9 @@
 package com.appninjas.data.network.clients.applicant
 
+import com.appninjas.domain.enums.ApplicantStatus
 import com.appninjas.domain.model.Applicant
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.Query
 
 interface ApplicantApiClient {
@@ -11,5 +13,8 @@ interface ApplicantApiClient {
 
     @GET("/applicant/getById")
     suspend fun getApplicantInfo(@Query("applicantId") applicantId: String): Applicant
+
+    @PATCH("/applicant/changeStatus")
+    suspend fun applicantChangeStatus(@Query("applicantId") applicantId: String, @Query("status") status: String)
 
 }

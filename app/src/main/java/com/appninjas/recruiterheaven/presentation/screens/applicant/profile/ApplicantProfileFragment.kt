@@ -1,13 +1,21 @@
 package com.appninjas.recruiterheaven.presentation.screens.applicant.profile
 
+import android.content.Intent
 import android.graphics.Paint
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import com.appninjas.recruiterheaven.R
 import com.appninjas.recruiterheaven.databinding.FragmentApplicantProfileBinding
+import com.appninjas.recruiterheaven.presentation.adapter.SocialNetworkAdapter
+import com.appninjas.recruiterheaven.presentation.adapter.model.SocialNetwork
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -47,11 +55,37 @@ class ApplicantProfileFragment : Fragment() {
 
                 viewModel.getVacancyTitle(applicant.appliedVacancyId)
                 viewModel.vacancyTitle.observe(viewLifecycleOwner) {vacancyTitle ->
-                    binding.applicantAppliedVacancyTitle.text = vacancyTitle
+                    applicantAppliedVacancyTitle.text = vacancyTitle
+                }
+
+                applicantPhoneNumberTv.setOnClickListener {
+                    val phoneIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:${applicant.phone}"))
+                    startActivity(phoneIntent)
+                }
+
+                val socialNetworkAdapter = SocialNetworkAdapter(applicant.social_media_links.map { SocialNetwork(link = it) }, socialNetworkCallback)
+                applicantSocialLinksRv.apply {
+                    adapter = socialNetworkAdapter
+                    layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
                 }
             }
         }
+
+        binding.applicantChangeStatusButton.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("applicantId", applicantId)
+            findNavController().navigate(R.id.applicantSetStatusFragment, bundle)
+        }
+
         binding.backToApplicantsListButton.setOnClickListener { requireActivity().supportFragmentManager.popBackStackImmediate() }
+
+    }
+
+    private val socialNetworkCallback = object : SocialNetworkAdapter.SocialNetworkClickCallback {
+        override fun onClick(model: SocialNetwork) {
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(model.link))
+            startActivity(browserIntent)
+        }
     }
 
 }

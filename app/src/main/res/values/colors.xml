@@ -6,6 +6,7 @@
     <color name="stopped_vacancy">#F30021</color>
     <color name="tab_selected_text">#3E3A49</color>
     <color name="secondary_background_color">#FAFCFF</color>
+    <color name="large_edit_text_background">#f0f0f0</color>
     <color name="tab_not_selected_text">#7D7D7D</color>
     <color name="main_blue">#417BD2</color>
     <color name="icon_grey">#3E3A49</color>

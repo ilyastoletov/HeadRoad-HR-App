@@ -47,11 +47,13 @@ class VacanciesFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
         }
 
-        if (networkAvailable) {
-            viewModel.getVacancies(getUserId())
-            viewModel.vacanciesList.observe(viewLifecycleOwner) { vacancies ->
-                vacanciesAdapter.setList(vacancies.sortedBy { it.vacancyStatus })
-                initSpinner(vacancies, vacanciesAdapter)
+        loadVacanciesList(vacanciesAdapter)
+
+        with(binding.vacanciesSwipeToRefreshLayout) {
+            setOnRefreshListener {
+                isRefreshing = true
+                loadVacanciesList(vacanciesAdapter)
+                isRefreshing = false
             }
         }
 
@@ -61,6 +63,17 @@ class VacanciesFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun loadVacanciesList(vacanciesAdapter: VacancyAdapter) {
+        val networkAvailable: Boolean = NetworkChecker.checkIsNetworkAvailable(requireContext())
+        if (networkAvailable) {
+            viewModel.getVacancies(getUserId())
+            viewModel.vacanciesList.observe(viewLifecycleOwner) { vacancies ->
+                vacanciesAdapter.setList(vacancies.sortedBy { it.vacancyStatus })
+                initSpinner(vacancies, vacanciesAdapter)
+            }
+        }
     }
 
     private fun getUserId(): String {

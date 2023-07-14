@@ -65,5 +65,14 @@
         android:id="@+id/applicantProfileFragment"
         android:name="com.appninjas.recruiterheaven.presentation.screens.applicant.profile.ApplicantProfileFragment"
         android:label="ApplicantProfileFragment"
-        tools:layout="@layout/fragment_applicant_profile"/>
+        tools:layout="@layout/fragment_applicant_profile">
+        <action
+            android:id="@+id/action_applicantProfileFragment_to_applicantSetStatusFragment"
+            app:destination="@id/applicantSetStatusFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/applicantSetStatusFragment"
+        android:name="com.appninjas.recruiterheaven.presentation.screens.applicant.set_status.ApplicantSetStatusFragment"
+        android:label="ApplicantSetStatusFragment"
+        tools:layout="@layout/fragment_applicant_set_status"/>
 </navigation>

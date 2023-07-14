@@ -26,4 +26,8 @@ class ApplicantRepoImpl(private val apiClient: ApplicantApiClient) : ApplicantRe
         return apiClient.getApplicantInfo(applicantId)
     }
 
+    override suspend fun applicantChangeStatus(applicantId: String, status: ApplicantStatus) {
+        apiClient.applicantChangeStatus(applicantId, status.toString())
+    }
+
 }

@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.appninjas.domain.model.Applicant
 import com.appninjas.domain.usecase.GetApplicantInfoUseCase
 import com.appninjas.domain.usecase.GetVacancyDetailsUseCase
+import com.appninjas.domain.usecase.GetVacancyTitleUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -14,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ApplicantProfileViewModel @Inject constructor(private val getApplicantInfoUseCase: GetApplicantInfoUseCase,
-                                                    private val getVacancyDetailsUseCase: GetVacancyDetailsUseCase): ViewModel() {
+                                                    private val getVacancyTitleUseCase: GetVacancyTitleUseCase): ViewModel() {
 
     private val _applicantDetails: MutableLiveData<Applicant> = MutableLiveData()
     val applicantDetails: LiveData<Applicant> = _applicantDetails
@@ -31,8 +32,8 @@ class ApplicantProfileViewModel @Inject constructor(private val getApplicantInfo
 
     fun getVacancyTitle(vacancyId: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = getVacancyDetailsUseCase.invoke(vacancyId)
-            _vacancyTitle.postValue(result.title)
+            val result = getVacancyTitleUseCase.invoke(vacancyId)
+            _vacancyTitle.postValue(result)
         }
     }
 

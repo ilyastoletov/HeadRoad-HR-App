@@ -15,6 +15,7 @@ import com.appninjas.recruiterheaven.databinding.FragmentSubApplicantsListBindin
 import com.appninjas.recruiterheaven.presentation.adapter.ApplicantChildListAdapter
 import com.appninjas.recruiterheaven.presentation.adapter.ApplicantStatusAdapter
 import com.appninjas.recruiterheaven.presentation.adapter.model.ApplicantParentItem
+import com.appninjas.recruiterheaven.presentation.utils.NetworkChecker
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -39,10 +40,14 @@ class ApplicantsListSubFragment(private val vacancyId: String) : Fragment() {
             adapter = applicantsListAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
+        loadApplicantsList(applicantsListAdapter)
 
-        viewModel.getApplicantsList(vacancyId)
-        viewModel.applicantsList.observe(viewLifecycleOwner) {applicantsMap ->
-            applicantsListAdapter.setList(convertApplicantMapToList(applicantsMap))
+        with(binding.applicantsListSwipeRefreshLayout) {
+            setOnRefreshListener {
+                isRefreshing = true
+                loadApplicantsList(applicantsListAdapter)
+                isRefreshing = false
+            }
         }
     }
 
@@ -52,6 +57,16 @@ class ApplicantsListSubFragment(private val vacancyId: String) : Fragment() {
             applicantsList.add(ApplicantParentItem(title = applicantCategory, applicantsList = applicantsMap[applicantCategory]!!))
         }
         return applicantsList
+    }
+
+    private fun loadApplicantsList(adapter: ApplicantStatusAdapter) {
+        val hasNetwork = NetworkChecker.checkIsNetworkAvailable(requireContext())
+        if (hasNetwork) {
+            viewModel.getApplicantsList(vacancyId)
+            viewModel.applicantsList.observe(viewLifecycleOwner) { applicantsMap ->
+                adapter.setList(convertApplicantMapToList(applicantsMap))
+            }
+        }
     }
 
     private val applicantProfileCallback = object : ApplicantChildListAdapter.ApplicantProfileCallback {
