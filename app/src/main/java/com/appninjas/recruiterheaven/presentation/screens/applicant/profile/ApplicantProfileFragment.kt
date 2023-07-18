@@ -16,6 +16,7 @@ import com.appninjas.recruiterheaven.R
 import com.appninjas.recruiterheaven.databinding.FragmentApplicantProfileBinding
 import com.appninjas.recruiterheaven.presentation.adapter.SocialNetworkAdapter
 import com.appninjas.recruiterheaven.presentation.adapter.model.SocialNetwork
+import com.appninjas.recruiterheaven.presentation.screens.applicant.profile.view_photo.ViewPhotoActivity
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -70,6 +71,12 @@ class ApplicantProfileFragment : Fragment() {
                 applicantResumeUrlText.setOnClickListener {
                     val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(applicant.resume_url))
                     startActivity(browserIntent)
+                }
+
+                applicantImage.setOnClickListener {
+                    val resizeActivityIntent = Intent(requireContext(), ViewPhotoActivity::class.java)
+                    resizeActivityIntent.putExtra("imageUrl", applicant.photo_url)
+                    startActivity(resizeActivityIntent)
                 }
 
                 val socialNetworkAdapter = SocialNetworkAdapter(applicant.social_media_links.map { SocialNetwork(link = it) }, socialNetworkCallback)

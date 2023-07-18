@@ -7,4 +7,5 @@ interface ApplicantRepository {
     suspend fun getApplicantsList(vacancyId: String): Map<String, List<Applicant>>
     suspend fun getApplicantInfo(applicantId: String): Applicant
     suspend fun applicantChangeStatus(applicantId: String, status: ApplicantStatus)
+    suspend fun getApplicantsByPage(vacancyID: String, pageNumber: Int, status: ApplicantStatus): List<Applicant>
 }

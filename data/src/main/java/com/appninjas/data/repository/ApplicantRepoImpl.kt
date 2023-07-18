@@ -30,4 +30,8 @@ class ApplicantRepoImpl(private val apiClient: ApplicantApiClient) : ApplicantRe
         apiClient.applicantChangeStatus(applicantId, status.toString())
     }
 
+    override suspend fun getApplicantsByPage(vacancyID: String, pageNumber: Int, status: ApplicantStatus): List<Applicant> {
+        return apiClient.getApplicantsByPage(vacancyID, pageNumber, status).toCollection(ArrayList())
+    }
+
 }

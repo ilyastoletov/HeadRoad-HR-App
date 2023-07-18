@@ -8,8 +8,9 @@ import com.appninjas.domain.model.Applicant
 import com.appninjas.recruiterheaven.databinding.ApplicantProfileItemBinding
 import com.squareup.picasso.Picasso
 
-class ApplicantChildListAdapter(private val applicantsList: List<Applicant>,
-                                private val applicantProfileCallback: ApplicantProfileCallback) : RecyclerView.Adapter<ApplicantChildListAdapter.ApplicantChildHolder>() {
+class ApplicantChildListAdapter(private val applicantProfileCallback: ApplicantProfileCallback) : RecyclerView.Adapter<ApplicantChildListAdapter.ApplicantChildHolder>() {
+
+    var applicantsList: List<Applicant> = listOf()
 
     inner class ApplicantChildHolder(view: View, private val binding: ApplicantProfileItemBinding) : RecyclerView.ViewHolder(view) {
         fun bind(model: Applicant) {
@@ -32,6 +33,11 @@ class ApplicantChildListAdapter(private val applicantsList: List<Applicant>,
     }
 
     override fun getItemCount(): Int = applicantsList.size
+
+    fun setList(newList: List<Applicant>) {
+        applicantsList = newList
+        notifyDataSetChanged()
+    }
 
     interface ApplicantProfileCallback {
         fun onClick(model: Applicant)

@@ -17,4 +17,7 @@ interface ApplicantApiClient {
     @PATCH("/applicant/changeStatus")
     suspend fun applicantChangeStatus(@Query("applicantId") applicantId: String, @Query("status") status: String)
 
+    @GET("/applicant/getByPage")
+    suspend fun getApplicantsByPage(@Query("vacancyId") vacancyId: String, @Query("page") page: Int, @Query("status") status: ApplicantStatus): Array<Applicant>
+
 }

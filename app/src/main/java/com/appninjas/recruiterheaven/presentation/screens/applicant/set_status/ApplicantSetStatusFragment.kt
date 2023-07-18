@@ -75,12 +75,12 @@ class ApplicantSetStatusFragment : Fragment() {
                 )
                 val infoDialog = AlertDialog.Builder(requireContext())
                     .setTitle("Информация")
-                    .setMessage("Статус кандидата успешно сменен. Обновите список, потянув его вверх, чтобы кандидат перешел в нужную категорию")
+                    .setMessage("Статус кандидата успешно сменен. Вернитесь на экран со списком кандидатов и и бновите список, потянув его вверх, чтобы кандидат перешел в нужную категорию")
                     .setPositiveButton("Ок") { dialog, _ -> dialog.cancel() }
                     .setCancelable(true)
                     .create()
                 infoDialog.show()
-                requireActivity().supportFragmentManager.popBackStackImmediate("com.appninjas.recruiterheaven.presentation.screens.vacancies.vacancy_info.VacancyInfoFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                requireActivity().supportFragmentManager.popBackStackImmediate()
             }
         }
 

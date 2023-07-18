@@ -9,6 +9,7 @@ import com.appninjas.domain.usecase.CreateVacancyUseCase
 import com.appninjas.domain.usecase.DeleteVacancyUseCase
 import com.appninjas.domain.usecase.GetApplicantInfoUseCase
 import com.appninjas.domain.usecase.GetApplicantListUseCase
+import com.appninjas.domain.usecase.GetApplicantsListByPageUseCase
 import com.appninjas.domain.usecase.GetUserVacanciesUseCase
 import com.appninjas.domain.usecase.GetVacancyDetailsUseCase
 import com.appninjas.domain.usecase.GetVacancyTitleUseCase
@@ -76,6 +77,11 @@ class DomainModule {
     @Provides
     fun provideApplicantChangeStatusUseCase(applicantRepository: ApplicantRepository): ApplicantChangeStatusUseCase {
         return ApplicantChangeStatusUseCase(applicantRepository)
+    }
+
+    @Provides
+    fun provideGetApplicantsByPageUseCase(applicantRepository: ApplicantRepository): GetApplicantsListByPageUseCase {
+        return GetApplicantsListByPageUseCase(applicantRepository)
     }
 
 }
