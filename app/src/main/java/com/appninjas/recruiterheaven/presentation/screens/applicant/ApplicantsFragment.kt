@@ -10,28 +10,10 @@ import com.appninjas.recruiterheaven.databinding.FragmentApplicantsBinding
 
 class ApplicantsFragment : Fragment() {
 
-    private val viewModel: ApplicantsViewModel by lazy {
-        ViewModelProvider(this)[ApplicantsViewModel::class.java]
-    }
+    private lateinit var binding: FragmentApplicantsBinding
 
-    private var _binding: FragmentApplicantsBinding? = null
-    private val binding: FragmentApplicantsBinding
-        get() = _binding ?: throw Exception("FragmentApplicantsBinding = null")
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentApplicantsBinding.inflate(inflater, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = FragmentApplicantsBinding.inflate(inflater, container, false)
         return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    companion object {
-        fun newInstance() = ApplicantsFragment()
     }
 }
