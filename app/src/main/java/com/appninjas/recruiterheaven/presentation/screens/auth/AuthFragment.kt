@@ -36,7 +36,6 @@ class AuthFragment : Fragment() {
         initUI()
     }
 
-    // TODO("Сделать навигацию по фрагментам относительно роли пользователя")
     private fun initUI() {
         binding.buttonLogin.setOnClickListener {
             if (validateFields()) {

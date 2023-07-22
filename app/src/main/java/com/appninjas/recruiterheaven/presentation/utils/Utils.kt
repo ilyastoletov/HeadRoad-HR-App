@@ -1,6 +1,7 @@
 package com.appninjas.recruiterheaven.presentation.utils
 
 import android.view.View
+import com.appninjas.recruiterheaven.presentation.adapter.model.SocialNetwork
 
 object Utils {
 

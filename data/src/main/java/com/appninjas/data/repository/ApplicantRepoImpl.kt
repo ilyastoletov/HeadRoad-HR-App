@@ -1,5 +1,6 @@
 package com.appninjas.data.repository
 
+import android.util.Log
 import com.appninjas.data.network.clients.applicant.ApplicantApiClient
 import com.appninjas.domain.enums.ApplicantStatus
 import com.appninjas.domain.model.Applicant
@@ -32,6 +33,14 @@ class ApplicantRepoImpl(private val apiClient: ApplicantApiClient) : ApplicantRe
 
     override suspend fun getApplicantsByPage(vacancyID: String, pageNumber: Int, status: ApplicantStatus): List<Applicant> {
         return apiClient.getApplicantsByPage(vacancyID, pageNumber, status).toCollection(ArrayList())
+    }
+
+    override suspend fun searchApplicants(searchQuery: String, city: String?, fullWorkDay: Boolean, wantedSalaryBottom: String?, wantedSalaryTop: String?): List<Applicant>? {
+        val foundApplicantsList = apiClient.searchApplicants(searchQuery, city, fullWorkDay, wantedSalaryBottom, wantedSalaryTop).toCollection(ArrayList())
+        Log.d("tag", foundApplicantsList.toString())
+        return foundApplicantsList.ifEmpty {
+            null
+        }
     }
 
 }

@@ -22,7 +22,6 @@
         android:fontFamily="@font/raleway_semi_bold"
         android:textSize="23sp"
         android:textColor="@color/black"
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -46,6 +45,7 @@
             android:paddingStart="12dp">
 
         <TextView
+            android:id="@+id/filters_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/raleway_medium"
@@ -55,6 +55,7 @@
             />
 
             <ImageView
+                android:id="@+id/filter_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/baseline_filter_alt_24"
@@ -78,6 +79,7 @@
         app:layout_constraintTop_toBottomOf="@id/candidates_text">
 
     <com.mancj.materialsearchbar.MaterialSearchBar
+        android:id="@+id/applicants_search_bar"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         app:mt_placeholder="Поиск..."
@@ -91,7 +93,7 @@
 
         <LinearLayout
             android:id="@+id/applicants_found_layout"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -127,6 +129,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/search_bar_card"
             android:layout_marginTop="20dp"
+            android:visibility="gone"
             android:orientation="vertical">
 
             <TextView
@@ -159,33 +162,37 @@
                     android:fontFamily="@font/raleway_semi_bold"
                     android:textSize="17sp"/>
 
-                    <androidx.cardview.widget.CardView
+                    <com.google.android.material.card.MaterialCardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
                         app:cardCornerRadius="15dp"
                         app:cardElevation="0dp"
+                        app:strokeColor="@color/tab_not_selected_text"
+                        app:strokeWidth="1dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/candidates_text">
 
                     <com.mancj.materialsearchbar.MaterialSearchBar
+                        android:id="@+id/city_search_bar"
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="match_parent"
                         app:mt_placeholder="Введите город"
                         app:mt_placeholderColor="@color/tab_not_selected_text"
                         android:elevation="0dp"
                         app:mt_textColor="@color/black"
-                        app:mt_searchBarColor="@color/secondary_background_color"
+                        app:mt_searchBarColor="@color/white"
                         />
 
-                    </androidx.cardview.widget.CardView>
+                    </com.google.android.material.card.MaterialCardView>
 
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/occupation_type_filter_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="10dp"
@@ -213,6 +220,7 @@
                         android:id="@+id/work_day_show_hide_switcher"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
@@ -228,14 +236,24 @@
 
                     </ImageSwitcher>
 
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/occupation_type_filter_body"
+                        android:visibility="visible"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/occupation_type_header_text">
+
                     <LinearLayout
                         android:id="@+id/work_day_layout_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
+                        android:layout_marginTop="17dp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/occupation_type_header_text"
-                        android:layout_marginTop="17dp">
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -262,7 +280,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/work_day_show_hide_switcher">
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <RadioButton
                             android:id="@+id/full_day_radio"
@@ -277,7 +295,101 @@
 
                     </RadioGroup>
 
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/wanted_salary_filter_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="3dp"
+                android:layout_marginTop="20dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="15dp">
+
+                <TextView
+                    android:id="@+id/wanted_salary_text_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Желаемая з-п"
+                    android:fontFamily="@font/raleway_semi_bold"
+                    android:textSize="17sp"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                    <ImageSwitcher
+                        android:id="@+id/wanted_salary_show_hide_switcher"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/baseline_keyboard_arrow_down_24"/>
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:src="@drawable/baseline_keyboard_arrow_up_24"/>
+
+                    </ImageSwitcher>
+
+                    <LinearLayout
+                        android:id="@+id/wanted_salary_body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:visibility="visible"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/wanted_salary_text_filter"
+                        android:layout_marginTop="10dp">
+
+                    <EditText
+                        android:id="@+id/wanted_salary_from_edit_text"
+                        android:layout_width="110dp"
+                        android:layout_height="50dp"
+                        android:hint="От"/>
+
+                    <EditText
+                        android:id="@+id/wanted_salary_top_edit_text"
+                        android:layout_width="110dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="20dp"
+                        android:hint="До"/>
+
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/apply_filters_button"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                app:cardCornerRadius="15dp"
+                app:cardBackgroundColor="@color/main_blue"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Применить фильтры"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/raleway_semi_bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/white"/>
 
             </androidx.cardview.widget.CardView>
 

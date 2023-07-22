@@ -20,7 +20,7 @@ import com.appninjas.recruiterheaven.presentation.screens.applicant.profile.view
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 
-// TODO("Profile image resizing feature")
+
 @AndroidEntryPoint
 class ApplicantProfileFragment : Fragment() {
 

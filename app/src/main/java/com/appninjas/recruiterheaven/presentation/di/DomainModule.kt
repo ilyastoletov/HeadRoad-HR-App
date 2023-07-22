@@ -14,6 +14,7 @@ import com.appninjas.domain.usecase.GetUserVacanciesUseCase
 import com.appninjas.domain.usecase.GetVacancyDetailsUseCase
 import com.appninjas.domain.usecase.GetVacancyTitleUseCase
 import com.appninjas.domain.usecase.LoginUseCase
+import com.appninjas.domain.usecase.SearchApplicantsUseCase
 import com.appninjas.domain.usecase.UpdateVacancyUseCase
 import dagger.Module
 import dagger.Provides
@@ -82,6 +83,11 @@ class DomainModule {
     @Provides
     fun provideGetApplicantsByPageUseCase(applicantRepository: ApplicantRepository): GetApplicantsListByPageUseCase {
         return GetApplicantsListByPageUseCase(applicantRepository)
+    }
+
+    @Provides
+    fun provideSearchApplicantsUseCase(applicantRepository: ApplicantRepository): SearchApplicantsUseCase {
+        return SearchApplicantsUseCase(applicantRepository)
     }
 
 }

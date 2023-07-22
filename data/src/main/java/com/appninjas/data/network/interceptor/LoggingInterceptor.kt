@@ -12,10 +12,10 @@ class LoggingInterceptor : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
-        Log.d(LOG_TAG, "Going to proceed request to ${request.url} with headers ${request.headers}")
+        Log.d(LOG_TAG, "Going to proceed request to ${request.url}\nWith headers ${request.headers}")
 
         val response = chain.proceed(request)
-        Log.d(LOG_TAG, "Got response ${response.body!!}")
+        Log.d(LOG_TAG, "Got response ${response.body}")
         return response
     }
 

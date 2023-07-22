@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 interface ApplicantApiClient {
 
-    @GET("/applicant/getAll")
+    @GET("/applicant/getAllByVacancyId")
     suspend fun getApplicantsListByVacancyId(@Query("vacancyId") vacancyId: String): Array<Applicant>
 
     @GET("/applicant/getById")
@@ -19,5 +19,12 @@ interface ApplicantApiClient {
 
     @GET("/applicant/getByPage")
     suspend fun getApplicantsByPage(@Query("vacancyId") vacancyId: String, @Query("page") page: Int, @Query("status") status: ApplicantStatus): Array<Applicant>
+
+    @GET("/applicant/search")
+    suspend fun searchApplicants(@Query("query") searchQuery: String,
+                                 @Query("city") city: String?,
+                                 @Query("fullWorkDay") fullWorkDay: Boolean,
+                                 @Query("wantedSalaryBottom") wantedBot: String?,
+                                 @Query("wantedSalaryTop") wantedTop: String?): Array<Applicant>
 
 }
