@@ -93,7 +93,7 @@ class ApplicantProfileFragment : Fragment() {
             findNavController().navigate(R.id.applicantSetStatusFragment, bundle)
         }
 
-        binding.backToApplicantsListButton.setOnClickListener { requireActivity().supportFragmentManager.popBackStackImmediate() }
+        binding.backToApplicantsListButton.setOnClickListener { findNavController().popBackStack() }
 
     }
 

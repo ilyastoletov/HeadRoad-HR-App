@@ -58,6 +58,7 @@ dependencies {
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
     implementation 'com.github.MikeOrtiz:TouchImageView:3.3'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'com.github.mancj:MaterialSearchBar:0.8.5'
 
     def navigation_version = "2.5.3"

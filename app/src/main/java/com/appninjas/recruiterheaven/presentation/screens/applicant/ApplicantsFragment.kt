@@ -6,13 +6,13 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.appninjas.domain.model.Applicant
 import com.appninjas.recruiterheaven.R
 import com.appninjas.recruiterheaven.databinding.FragmentApplicantsBinding
@@ -30,8 +30,6 @@ class ApplicantsFragment : Fragment() {
     private lateinit var binding: FragmentApplicantsBinding
     private val viewModel: ApplicantsViewModel by viewModels()
 
-    private lateinit var applicantsSearchAdapter: ApplicantSearchAdapter
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentApplicantsBinding.inflate(inflater, container, false)
         return binding.root
@@ -39,16 +37,30 @@ class ApplicantsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        applicantsSearchAdapter = ApplicantSearchAdapter(profileImageCallback, applicantClickCallback, socialMediaCallback)
-
+        initUI()
         initFiltersButton()
         setupFiltersMenu()
-        initUI()
     }
 
     private fun initUI() {
-        binding.workDayRadio.check(R.id.full_day_radio)
 
+        val applicantsSearchAdapter = ApplicantSearchAdapter(profileImageCallback, applicantClickCallback, socialMediaCallback)
+        binding.applicantsFoundRecyclerView.apply {
+            adapter = applicantsSearchAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+
+        viewModel.foundApplicants.observeForever {applicants ->
+            if (applicants != null) {
+                applicantsSearchAdapter.setList(applicants)
+                binding.applicantsFoundText.text = "Найдено - ${applicants.size}"
+            } else {
+                applicantsSearchAdapter.setList(listOf())
+                binding.applicantsFoundText.text = "Найдено - 0"
+            }
+        }
+
+        binding.workDayRadio.check(R.id.full_day_radio)
         binding.applicantsSearchBar.addTextChangeListener(applicantsSearchBarTextWatcher)
     }
 
@@ -91,18 +103,12 @@ class ApplicantsFragment : Fragment() {
         override fun onTextChanged(text: CharSequence?, start: Int, cound: Int, after: Int) {}
 
         override fun afterTextChanged(text: Editable?) {
+            viewModel.clearApplicants()
             val filters = getFilters()
             viewModel.searchApplicants(text.toString(), filters["city"].toString(),
                 filters["workDayFilter"].toString().toBoolean(),
                 filters["salaryBottom"].toString(),
                 filters["salaryTop"].toString())
-
-            viewModel.foundApplicants.observe(viewLifecycleOwner) {applicants ->
-                if (applicants != null) {
-                    applicantsSearchAdapter.setList(applicants)
-                }
-                viewModel.foundApplicants.removeObservers(viewLifecycleOwner)
-            }
         }
     }
 

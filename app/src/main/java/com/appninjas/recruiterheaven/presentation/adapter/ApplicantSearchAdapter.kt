@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.appninjas.domain.model.Applicant
 import com.appninjas.recruiterheaven.databinding.ApplicantsSearchItemBinding
 import com.appninjas.recruiterheaven.presentation.adapter.model.SocialNetwork
+import com.squareup.picasso.Picasso
 
 class ApplicantSearchAdapter(private val profileImageCallback: ApplicantProfileImageCallback,
                              private val searchButtonCallback: ApplicantSearchButtonCallback,
@@ -22,6 +23,8 @@ class ApplicantSearchAdapter(private val profileImageCallback: ApplicantProfileI
                 applicantAgeAndCitySearchCard.text = "${model.age} лет, ${model.city}"
                 applicantJobSearchCard.text = model.profession
                 applicantJobInfoSearch.text = "${model.wanted_salary} • Стаж ${model.job_experience} года/лет"
+
+                Picasso.get().load(model.photo_url).into(applicantSearchProfileImage)
 
                 applicantSearchProfileImage.setOnClickListener { profileImageCallback.onClick(model) }
                 applicantSearchSetStatusButton.setOnClickListener { searchButtonCallback.onClick(model) }
