@@ -24,8 +24,8 @@ class UserRepoImpl(private val context: Context, private val userApiClient: User
             val sharedPreferences = context.getSharedPreferences("main", Context.MODE_PRIVATE)
             sharedPreferences.edit().apply {
                 putBoolean("user_logged_in", true)
-                putString("user_id", userObject!!.authorId)
-                putString("user_status", userObject!!.role.toString())
+                putString("user_id", userObject.authorId)
+                putString("user_status", userObject.role.toString())
             }.apply()
         } else {
             when(userLoginCall.code()) {

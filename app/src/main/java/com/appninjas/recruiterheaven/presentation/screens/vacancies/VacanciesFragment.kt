@@ -18,6 +18,8 @@ import com.appninjas.recruiterheaven.presentation.adapter.VacancyAdapter
 import com.appninjas.recruiterheaven.presentation.utils.NetworkChecker
 import com.appninjas.recruiterheaven.presentation.utils.SHARED_PREFS_NAME
 import com.appninjas.recruiterheaven.presentation.utils.USER_ID_KEY
+import com.appninjas.recruiterheaven.presentation.utils.Utils.setInvisible
+import com.appninjas.recruiterheaven.presentation.utils.Utils.setVisible
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -70,8 +72,15 @@ class VacanciesFragment : Fragment() {
         if (networkAvailable) {
             viewModel.getVacancies(getUserId())
             viewModel.vacanciesList.observe(viewLifecycleOwner) { vacancies ->
-                vacanciesAdapter.setList(vacancies.sortedBy { it.vacancyStatus })
-                initSpinner(vacancies, vacanciesAdapter)
+                if (vacancies.size == 0) {
+                    binding.rvVacancies.setInvisible()
+                    binding.noVacanciesText.setVisible()
+                } else {
+                    binding.rvVacancies.setVisible()
+                    binding.noVacanciesText.setInvisible()
+                    vacanciesAdapter.setList(vacancies.sortedBy { it.vacancyStatus })
+                    initSpinner(vacancies, vacanciesAdapter)
+                }
             }
         }
     }

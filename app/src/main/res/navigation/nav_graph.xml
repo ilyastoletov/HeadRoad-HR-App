@@ -50,7 +50,11 @@
         android:id="@+id/navMetrics"
         android:name="com.appninjas.recruiterheaven.presentation.screens.metrics.MetricsFragment"
         tools:layout="@layout/fragment_metrics"
-        android:label="MetricsFragment" />
+        android:label="MetricsFragment" >
+        <action
+            android:id="@+id/action_navMetrics_to_createMetricsFragment"
+            app:destination="@id/createMetricsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/createVacancyFragment"
         android:name="com.appninjas.recruiterheaven.presentation.screens.vacancies.create_vacancy.CreateVacancyFragment"
@@ -75,4 +79,9 @@
         android:name="com.appninjas.recruiterheaven.presentation.screens.applicant.set_status.ApplicantSetStatusFragment"
         android:label="ApplicantSetStatusFragment"
         tools:layout="@layout/fragment_applicant_set_status"/>
+    <fragment
+        android:id="@+id/createMetricsFragment"
+        android:name="com.appninjas.recruiterheaven.presentation.screens.metrics.create_metrics.CreateMetricsFragment"
+        android:label="CreateMetricsFragment"
+        tools:layout="@layout/fragment_create_metrics"/>
 </navigation>

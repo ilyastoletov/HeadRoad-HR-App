@@ -19,4 +19,12 @@
         <item>Пауза</item>
         <item>Закрыта</item>
     </array>
+    <array name="applicant_status">
+        <item>Выберите статус</item>
+        <item>Отклики рекрутера</item>
+        <item>Тестовое задание</item>
+        <item>Интервью</item>
+        <item>Онбординг</item>
+        <item>Отказ</item>
+    </array>
 </resources>
